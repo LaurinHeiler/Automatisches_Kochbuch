@@ -1,0 +1,14 @@
+C:\Users\Laurin\Documents\4.Klasse\SOF_ANP\Semesterprojekt_mit_WebServices\Automatisches_Kochbuch\Automatisches_Kochbuch\bin\Debug\netcoreapp2.1\Automatisches_Kochbuch.deps.json
+C:\Users\Laurin\Documents\4.Klasse\SOF_ANP\Semesterprojekt_mit_WebServices\Automatisches_Kochbuch\Automatisches_Kochbuch\bin\Debug\netcoreapp2.1\Automatisches_Kochbuch.runtimeconfig.json
+C:\Users\Laurin\Documents\4.Klasse\SOF_ANP\Semesterprojekt_mit_WebServices\Automatisches_Kochbuch\Automatisches_Kochbuch\bin\Debug\netcoreapp2.1\Automatisches_Kochbuch.runtimeconfig.dev.json
+C:\Users\Laurin\Documents\4.Klasse\SOF_ANP\Semesterprojekt_mit_WebServices\Automatisches_Kochbuch\Automatisches_Kochbuch\bin\Debug\netcoreapp2.1\Automatisches_Kochbuch.dll
+C:\Users\Laurin\Documents\4.Klasse\SOF_ANP\Semesterprojekt_mit_WebServices\Automatisches_Kochbuch\Automatisches_Kochbuch\obj\Debug\netcoreapp2.1\Automatisches_Kochbuch.csprojAssemblyReference.cache
+C:\Users\Laurin\Documents\4.Klasse\SOF_ANP\Semesterprojekt_mit_WebServices\Automatisches_Kochbuch\Automatisches_Kochbuch\obj\Debug\netcoreapp2.1\Automatisches_Kochbuch.csproj.CoreCompileInputs.cache
+C:\Users\Laurin\Documents\4.Klasse\SOF_ANP\Semesterprojekt_mit_WebServices\Automatisches_Kochbuch\Automatisches_Kochbuch\obj\Debug\netcoreapp2.1\Automatisches_Kochbuch.RazorAssemblyInfo.cache
+C:\Users\Laurin\Documents\4.Klasse\SOF_ANP\Semesterprojekt_mit_WebServices\Automatisches_Kochbuch\Automatisches_Kochbuch\obj\Debug\netcoreapp2.1\Automatisches_Kochbuch.RazorAssemblyInfo.cs
+C:\Users\Laurin\Documents\4.Klasse\SOF_ANP\Semesterprojekt_mit_WebServices\Automatisches_Kochbuch\Automatisches_Kochbuch\obj\Debug\netcoreapp2.1\Automatisches_Kochbuch.AssemblyInfoInputs.cache
+C:\Users\Laurin\Documents\4.Klasse\SOF_ANP\Semesterprojekt_mit_WebServices\Automatisches_Kochbuch\Automatisches_Kochbuch\obj\Debug\netcoreapp2.1\Automatisches_Kochbuch.AssemblyInfo.cs
+C:\Users\Laurin\Documents\4.Klasse\SOF_ANP\Semesterprojekt_mit_WebServices\Automatisches_Kochbuch\Automatisches_Kochbuch\obj\Debug\netcoreapp2.1\Automatisches_Kochbuch.RazorTargetAssemblyInfo.cache
+C:\Users\Laurin\Documents\4.Klasse\SOF_ANP\Semesterprojekt_mit_WebServices\Automatisches_Kochbuch\Automatisches_Kochbuch\bin\Debug\netcoreapp2.1\Automatisches_Kochbuch.pdb
+C:\Users\Laurin\Documents\4.Klasse\SOF_ANP\Semesterprojekt_mit_WebServices\Automatisches_Kochbuch\Automatisches_Kochbuch\obj\Debug\netcoreapp2.1\Automatisches_Kochbuch.dll
+C:\Users\Laurin\Documents\4.Klasse\SOF_ANP\Semesterprojekt_mit_WebServices\Automatisches_Kochbuch\Automatisches_Kochbuch\obj\Debug\netcoreapp2.1\Automatisches_Kochbuch.pdb
