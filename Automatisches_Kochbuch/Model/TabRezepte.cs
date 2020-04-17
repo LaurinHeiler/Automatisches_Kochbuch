@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Automatisches_Kochbuch.Model
 {
@@ -11,15 +13,32 @@ namespace Automatisches_Kochbuch.Model
             LnkTabUserRezepte = new HashSet<LnkTabUserRezepte>();
         }
 
+
+        [Required]
+        [DisplayName("ID")]
         public int Id { get; set; }
+
+        [Required]
+        [DisplayName("Rezeptname")]
         public string Rezeptname { get; set; }
-        public sbyte? Vegetarisch { get; set; }
-        public sbyte? Vegan { get; set; }
-        public sbyte? Glutenfrei { get; set; }
+
+        [DisplayName("Vegetarisch")]
+        public bool Vegetarisch { get; set; }
+
+        [DisplayName("Vegan")]
+        public bool Vegan { get; set; }
+
+        [DisplayName("glutenfrei")]
+        public bool Glutenfrei { get; set; }
+
+        [Required]
+        [DisplayName("Zubereitung")]
         public string Zubereitung { get; set; }
+
+        [DisplayName("Bild")]
         public byte[] Bild { get; set; }
 
-        public ICollection<LnkTabRezeptZutaten> LnkTabRezeptZutaten { get; set; }
-        public ICollection<LnkTabUserRezepte> LnkTabUserRezepte { get; set; }
+        public virtual ICollection<LnkTabRezeptZutaten> LnkTabRezeptZutaten { get; set; }
+        public virtual ICollection<LnkTabUserRezepte> LnkTabUserRezepte { get; set; }
     }
 }
