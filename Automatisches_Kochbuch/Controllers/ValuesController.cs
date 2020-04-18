@@ -21,8 +21,9 @@ namespace Automatisches_Kochbuch.Controllers
                 return db.TabZutatenKategorien.ToList();
             }
         }
-
-
+        //-------------------------------------------
+        //KOMMENTAR UM ZU TESTEN OB ES FUNKTIONIERT!
+        //-------------------------------------------
 
         // GET api/values
         //[HttpGet]
