@@ -1,10 +1,11 @@
 ﻿using System;
+using Automatisches_Kochbuch.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Automatisches_Kochbuch.Model
 {
-    public partial class AutomatischesKochbuchContext : DbContext
+    public partial class AutomatischesKochbuchContext : DbContext, IDataContext
     {
         public AutomatischesKochbuchContext()
         {
@@ -24,12 +25,11 @@ namespace Automatisches_Kochbuch.Model
         public virtual DbSet<TabZutatenEinheit> TabZutatenEinheit { get; set; }
         public virtual DbSet<TabZutatenKategorien> TabZutatenKategorien { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public void Save()
         {
-            optionsBuilder
-                .UseLazyLoadingProxies()
-                .UseMySql("DataSource=localhost;DataBase=automatisches_kochbuch;UserID=root;");
+            SaveChanges();
         }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Automatisches_Kochbuch.Context;
 using Automatisches_Kochbuch.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -11,15 +12,27 @@ namespace Automatisches_Kochbuch.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private readonly IDataContext _context;
+
+        public ValuesController(IDataContext context)
+        {
+            _context = context;
+        }
+
+
         // ALLE ZUTATENKATEGORIEN ANZEIGEN --- GET api/values/zutatenkategorien
         [Route("api/[controller]/zutatenkategorien")]
         [HttpGet]
         public ActionResult<IEnumerable<TabZutatenKategorien>> zutatenkategorien()
         {
-            using (AutomatischesKochbuchContext db = new AutomatischesKochbuchContext())
-            {
-                return db.TabZutatenKategorien.ToList();
-            }
+            //using (AutomatischesKochbuchContext db = new AutomatischesKochbuchContext())
+            //{
+            //    return db.TabZutatenKategorien.ToList();
+            //}
+
+            IEnumerable<TabZutatenKategorien> tabZutatenKategoriens = _context.AlleZutatenKategorien();
+            return Ok(tabZutatenKategoriens);
+
         }
         //-------------------------------------------
         //KOMMENTAR UM ZU TESTEN OB ES FUNKTIONIERT!
