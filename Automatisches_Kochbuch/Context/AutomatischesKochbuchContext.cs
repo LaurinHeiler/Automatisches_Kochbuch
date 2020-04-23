@@ -164,7 +164,7 @@ namespace Automatisches_Kochbuch.Model
 
                 entity.Property(e => e.Glutenfrei)
                     .HasColumnName("glutenfrei")
-                    .HasColumnType("tinyint(1)");
+                    .HasColumnType("boolean");
 
                 entity.Property(e => e.Rezeptname)
                     .IsRequired()
@@ -172,11 +172,11 @@ namespace Automatisches_Kochbuch.Model
 
                 entity.Property(e => e.Vegan)
                     .HasColumnName("vegan")
-                    .HasColumnType("tinyint(1)");
+                    .HasColumnType("boolean");
 
                 entity.Property(e => e.Vegetarisch)
                     .HasColumnName("vegetarisch")
-                    .HasColumnType("tinyint(1)");
+                    .HasColumnType("boolean");
 
                 entity.Property(e => e.Zubereitung)
                     .IsRequired()
@@ -198,7 +198,7 @@ namespace Automatisches_Kochbuch.Model
 
                 entity.Property(e => e.Glutenfrei)
                     .HasColumnName("glutenfrei")
-                    .HasColumnType("tinyint(1)");
+                    .HasColumnType("boolean");
 
                 entity.Property(e => e.Nachname)
                     .IsRequired()
@@ -208,9 +208,9 @@ namespace Automatisches_Kochbuch.Model
                     .IsRequired()
                     .HasColumnType("varchar(50)");
 
-                entity.Property(e => e.Veganer).HasColumnType("tinyint(1)");
+                entity.Property(e => e.Veganer).HasColumnType("boolean");
 
-                entity.Property(e => e.Vegetarier).HasColumnType("tinyint(1)");
+                entity.Property(e => e.Vegetarier).HasColumnType("boolean");
 
                 entity.Property(e => e.Vorname)
                     .IsRequired()
@@ -231,7 +231,7 @@ namespace Automatisches_Kochbuch.Model
 
                 entity.Property(e => e.Glutenfrei)
                     .HasColumnName("glutenfrei")
-                    .HasColumnType("tinyint(1)")
+                    .HasColumnType("boolean")
                     .HasDefaultValueSql("'1'");
 
                 entity.Property(e => e.IdZutatEinheit)
@@ -244,12 +244,12 @@ namespace Automatisches_Kochbuch.Model
 
                 entity.Property(e => e.Vegan)
                     .HasColumnName("vegan")
-                    .HasColumnType("tinyint(1)")
+                    .HasColumnType("boolean")
                     .HasDefaultValueSql("'1'");
 
                 entity.Property(e => e.Vegetarisch)
                     .HasColumnName("vegetarisch")
-                    .HasColumnType("tinyint(1)")
+                    .HasColumnType("boolean")
                     .HasDefaultValueSql("'1'");
 
                 entity.Property(e => e.Zutat)

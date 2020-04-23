@@ -23,13 +23,13 @@ namespace Automatisches_Kochbuch.Model
         public string Rezeptname { get; set; }
 
         [DisplayName("Vegetarisch")]
-        public bool Vegetarisch { get; set; }
+        public byte Vegetarisch { get; set; }
 
         [DisplayName("Vegan")]
-        public bool Vegan { get; set; }
+        public byte Vegan { get; set; }
 
         [DisplayName("glutenfrei")]
-        public bool Glutenfrei { get; set; }
+        public byte Glutenfrei { get; set; }
 
         [Required]
         [DisplayName("Zubereitung")]

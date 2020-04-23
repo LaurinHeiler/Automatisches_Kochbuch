@@ -34,6 +34,16 @@ namespace Automatisches_Kochbuch.Controllers
             return Ok(tabZutatenKategoriens);
 
         }
+
+        [Route("api/[controller]/zutaten")]
+        [HttpGet]
+        public ActionResult<IEnumerable<TabZutaten>> zutaten()
+        {
+            IEnumerable<TabZutaten> tabZutaten = _context.AlleZutaten();
+            return Ok(tabZutaten);
+        }
+
+
         //-------------------------------------------
         //KOMMENTAR UM ZU TESTEN OB ES FUNKTIONIERT!
         //-------------------------------------------
