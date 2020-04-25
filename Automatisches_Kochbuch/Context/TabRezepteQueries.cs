@@ -86,7 +86,6 @@ namespace Automatisches_Kochbuch.Context
 
             }
 
-
             return context.TabRezepte.ToList();
         }
     }
