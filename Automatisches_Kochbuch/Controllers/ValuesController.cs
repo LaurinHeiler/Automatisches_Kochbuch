@@ -44,9 +44,15 @@ namespace Automatisches_Kochbuch.Controllers
         }
 
 
-        //-------------------------------------------
-        //KOMMENTAR UM ZU TESTEN OB ES FUNKTIONIERT!
-        //-------------------------------------------
+        //api/values/rezepte?ZutatenVomUser=37&ZutatenVomUser=31&ZutatenVomUser=10
+        [Route("api/[controller]/rezepte")]
+        [HttpGet]
+        public ActionResult<IEnumerable<TabRezepte>> rezepte(SortedSet<int> ZutatenVomUser)
+        {
+            IEnumerable<TabRezepte> tabZutaten = _context.MoeglicheRezepte(ZutatenVomUser);
+            return Ok(tabZutaten);
+        }
+
 
         // GET api/values
         //[HttpGet]
