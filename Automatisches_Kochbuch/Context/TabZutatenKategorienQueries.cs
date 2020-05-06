@@ -12,11 +12,7 @@ namespace Automatisches_Kochbuch.Context
        //hier würden nun bestimmte, immer wieder gebrauchte Queries stehen, aber nur für das 
        //Model ZutatenKategorien. Für die anderen Models wird eine neue Query-Klasse erstellt.
 
-
-        public static IEnumerable<TabZutatenKategorien> AlleZutatenKategorien (this IDataContext context)
-        {
-            return context.TabZutatenKategorien.ToList();
-        }
+        
 
     }
 }

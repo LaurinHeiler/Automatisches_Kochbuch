@@ -8,9 +8,6 @@ namespace Automatisches_Kochbuch.Context
 {
     public static class TabZutatenQueries
     {
-        public static IEnumerable<TabZutaten> AlleZutaten(this IDataContext context)
-        {
-            return context.TabZutaten.ToList();
-        }
+         
     }
 }

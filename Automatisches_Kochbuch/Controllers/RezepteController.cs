@@ -9,45 +9,22 @@ using Microsoft.Extensions.Logging;
 
 namespace Automatisches_Kochbuch.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class RezepteController : ControllerBase
     {
         private readonly IDataContext _context;
 
-        public ValuesController(IDataContext context)
+        public RezepteController(IDataContext context)
         {
             _context = context;
         }
 
 
-        // ALLE ZUTATENKATEGORIEN ANZEIGEN --- GET api/values/zutatenkategorien
-        [Route("api/[controller]/zutatenkategorien")]
+        //api/rezepte?ZutatenVomUser=37&ZutatenVomUser=31&ZutatenVomUser=10
+
         [HttpGet]
-        public ActionResult<IEnumerable<TabZutatenKategorien>> zutatenkategorien()
-        {
-            //using (AutomatischesKochbuchContext db = new AutomatischesKochbuchContext())
-            //{
-            //    return db.TabZutatenKategorien.ToList();
-            //}
-
-            IEnumerable<TabZutatenKategorien> tabZutatenKategoriens = _context.AlleZutatenKategorien();
-            return Ok(tabZutatenKategoriens);
-
-        }
-
-        [Route("api/[controller]/zutaten")]
-        [HttpGet]
-        public ActionResult<IEnumerable<TabZutaten>> zutaten()
-        {
-            IEnumerable<TabZutaten> tabZutaten = _context.AlleZutaten();
-            return Ok(tabZutaten);
-        }
-
-
-        //api/values/rezepte?ZutatenVomUser=37&ZutatenVomUser=31&ZutatenVomUser=10
-        [Route("api/[controller]/rezepte")]
-        [HttpGet]
-        public ActionResult<IEnumerable<TabRezepte>> rezepte(SortedSet<int> ZutatenVomUser)
+        public ActionResult<IEnumerable<TabRezepte>> GetRezepte(SortedSet<int> ZutatenVomUser)
         {
             IEnumerable<TabRezepte> tabZutaten = _context.MoeglicheRezepte(ZutatenVomUser);
             return Ok(tabZutaten);

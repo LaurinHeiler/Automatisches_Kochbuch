@@ -13,9 +13,9 @@ namespace Automatisches_Kochbuch.Context
 
             //IEnumerable<int> richtige = zutatenVomUser.Intersect(ZutatenSet);
 
-            zutatenVomUser.Add(10);
-            zutatenVomUser.Add(31);
-            zutatenVomUser.Add(37);
+            //zutatenVomUser.Add(10);
+            //zutatenVomUser.Add(31);
+            //zutatenVomUser.Add(37);
             //zutatenVomUser.Add(34);
             //zutatenVomUser.Add(31);
             //zutatenVomUser.Add(17);
@@ -25,11 +25,13 @@ namespace Automatisches_Kochbuch.Context
 
 
             //-----------------------------------------------------------------
+
+            //var 
+
             //RZ gibt die notwendige Menge an Zutaten pro Rezept an.
             int[] RZ = new int[context.TabRezepte.Count()];
             //RU gibt die vorhandenen Zutaten des Users pro Rezept an.
             int[] RU = new int[context.TabRezepte.Count()];
-
 
             for (int n = 1; n <= context.TabRezepte.Count(); n++)
             {
@@ -69,14 +71,17 @@ namespace Automatisches_Kochbuch.Context
             for (int n = 1; n <= context.TabRezepte.Count(); n++)
             {
                 TQ[n - 1] += Convert.ToDouble(RU[n-1]) / Convert.ToDouble(RZ[n-1]);
-
             }
 
             int w = 1;
+                
 
             foreach (var item in TQ)
             {
 
+
+
+                //return context.TabRezepte.Where(r => r.Id == w);
                 if (item > 0.8)
                 {
                     return context.TabRezepte.Where(r => r.Id == w);
@@ -85,6 +90,8 @@ namespace Automatisches_Kochbuch.Context
                 w++;
 
             }
+
+
 
             return context.TabRezepte.ToList();
         }
