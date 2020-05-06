@@ -40,6 +40,31 @@ namespace Automatisches_Kochbuch.Context
                 RZNew.Add(item.AnzahlRezepte);
             }
 
+            //Kürzere Variante um RU zu bestimmen (RU gibt die vorhandenen Zutaten des Users pro Rezept an.)
+            var RUOhneSchleife = context.LnkTabRezeptZutaten.GroupBy(t => t.IdRezept)
+                .Select(z => new { Rezepte = z.Key, ZutatenProRezept = z.GroupBy(k => k.IdZutaten)
+                .Select(k => new {Zutaten = k.Key }) })
+                .OrderBy(z => z.Rezepte)
+                .Select(z => z);
+
+
+
+            List<int> RUNew = new List<int>();
+
+            foreach (var item2 in RUOhneSchleife)
+            {
+                IEnumerable<int> Richtige = new SortedSet<int>();
+                SortedSet<int> ZutatenProRez = new SortedSet<int>();
+                foreach (var item in item2.ZutatenProRezept)
+                {
+                    ZutatenProRez.Add(item.Zutaten);
+                }
+
+                Richtige = ZutatenProRez.Intersect(zutatenVomUser);
+                RUNew.Add(Richtige.Count());
+
+            }
+
 
 
             //RZ gibt die notwendige Menge an Zutaten pro Rezept an.
