@@ -13,15 +13,15 @@ namespace Automatisches_Kochbuch.Context
 
             //IEnumerable<int> richtige = zutatenVomUser.Intersect(ZutatenSet);
 
-            //zutatenVomUser.Add(10);
-            //zutatenVomUser.Add(31);
-            //zutatenVomUser.Add(37);
-            //zutatenVomUser.Add(34);
-            //zutatenVomUser.Add(31);
-            //zutatenVomUser.Add(17);
-            //zutatenVomUser.Add(1);
-            //zutatenVomUser.Add(10);
-            //zutatenVomUser.Add(21);
+            zutatenVomUser.Add(10);
+            zutatenVomUser.Add(31);
+            zutatenVomUser.Add(37);
+            zutatenVomUser.Add(34);
+            zutatenVomUser.Add(31);
+            zutatenVomUser.Add(17);
+            zutatenVomUser.Add(1);
+            zutatenVomUser.Add(10);
+            zutatenVomUser.Add(21);
 
 
             //-----------------------------------------------------------------
@@ -73,18 +73,27 @@ namespace Automatisches_Kochbuch.Context
                 TQ[n - 1] += Convert.ToDouble(RU[n-1]) / Convert.ToDouble(RZ[n-1]);
             }
 
+
+
+
+            //Die Rezepte mit über 80% Trefferquote werden dem User angezeigt. 
             int w = 1;
-                
+            List<TabRezepte> MoeglicheRezepte = new List<TabRezepte>();
 
             foreach (var item in TQ)
             {
 
-
-
-                //return context.TabRezepte.Where(r => r.Id == w);
                 if (item > 0.8)
                 {
-                    return context.TabRezepte.Where(r => r.Id == w);
+                    var rezept = context.TabRezepte.Where(r => r.Id == w);
+
+                    TabRezepte Rezept = null;
+                    foreach (var x in rezept)
+                    {
+                        Rezept = x;
+                    }
+
+                    MoeglicheRezepte.Add(Rezept);
                 }
 
                 w++;
@@ -92,8 +101,7 @@ namespace Automatisches_Kochbuch.Context
             }
 
 
-
-            return context.TabRezepte.ToList();
+            return MoeglicheRezepte;
         }
     }
 }

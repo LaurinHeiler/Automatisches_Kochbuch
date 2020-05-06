@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Automatisches_Kochbuch.Context;
 using Automatisches_Kochbuch.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -24,9 +25,16 @@ namespace Automatisches_Kochbuch.Controllers
         //api/rezepte?ZutatenVomUser=37&ZutatenVomUser=31&ZutatenVomUser=10
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<IEnumerable<TabRezepte>> GetRezepte(SortedSet<int> ZutatenVomUser)
         {
             IEnumerable<TabRezepte> tabZutaten = _context.MoeglicheRezepte(ZutatenVomUser);
+            if ((tabZutaten != null) && (!tabZutaten.Any()))
+            {
+                return NotFound("Es wurde leider kein Rezept für Sie gefunden! :-(");
+            }
+
             return Ok(tabZutaten);
         }
 
