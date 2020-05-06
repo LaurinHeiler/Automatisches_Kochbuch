@@ -26,7 +26,21 @@ namespace Automatisches_Kochbuch.Context
 
             //-----------------------------------------------------------------
 
-            //var 
+            var AnzahlRezepte = context.TabRezepte.Select(t => t.Id).Count();
+
+            //Kürzere Variante um RZ zu bestimmen (RZ gibt die notwendige Menge an Zutaten pro Rezept an.)
+            var RZOhneSchleife = context.LnkTabRezeptZutaten.GroupBy(t => t.IdRezept)
+                .Select(z => new { Rezepte = z.Key, AnzahlRezepte = z.Count() })
+                .OrderBy(z => z.Rezepte)
+                .Select(z => z);
+
+            List<int> RZNew = new List<int>();
+            foreach (var item in RZOhneSchleife)
+            {
+                RZNew.Add(item.AnzahlRezepte);
+            }
+
+
 
             //RZ gibt die notwendige Menge an Zutaten pro Rezept an.
             int[] RZ = new int[context.TabRezepte.Count()];
