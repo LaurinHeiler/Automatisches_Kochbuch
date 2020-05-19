@@ -1,24 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Daniel Romen\\Source\\Repos\\LaurinHeiler\\Automatisches_Kochbuch\\Automatisches_Kochbuch\\Automatisches_Kochbuch.csproj": {}
+    "C:\\Users\\danie\\Source\\Repos\\Automatisches_Kochbuch\\Automatisches_Kochbuch\\Automatisches_Kochbuch.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Daniel Romen\\Source\\Repos\\LaurinHeiler\\Automatisches_Kochbuch\\Automatisches_Kochbuch\\Automatisches_Kochbuch.csproj": {
+    "C:\\Users\\danie\\Source\\Repos\\Automatisches_Kochbuch\\Automatisches_Kochbuch\\Automatisches_Kochbuch.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Daniel Romen\\Source\\Repos\\LaurinHeiler\\Automatisches_Kochbuch\\Automatisches_Kochbuch\\Automatisches_Kochbuch.csproj",
+        "projectUniqueName": "C:\\Users\\danie\\Source\\Repos\\Automatisches_Kochbuch\\Automatisches_Kochbuch\\Automatisches_Kochbuch.csproj",
         "projectName": "Automatisches_Kochbuch",
-        "projectPath": "C:\\Users\\Daniel Romen\\Source\\Repos\\LaurinHeiler\\Automatisches_Kochbuch\\Automatisches_Kochbuch\\Automatisches_Kochbuch.csproj",
-        "packagesPath": "C:\\Users\\Daniel Romen\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Daniel Romen\\Source\\Repos\\LaurinHeiler\\Automatisches_Kochbuch\\Automatisches_Kochbuch\\obj\\",
+        "projectPath": "C:\\Users\\danie\\Source\\Repos\\Automatisches_Kochbuch\\Automatisches_Kochbuch\\Automatisches_Kochbuch.csproj",
+        "packagesPath": "C:\\Users\\danie\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\danie\\Source\\Repos\\Automatisches_Kochbuch\\Automatisches_Kochbuch\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\Daniel Romen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\danie\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -52,7 +51,7 @@
             "Microsoft.AspNetCore.Razor.Design": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[2.2.0, )"
+              "version": "[2.1.2, )"
             },
             "Microsoft.EntityFrameworkCore.Proxies": {
               "target": "Package",
@@ -69,10 +68,6 @@
               "target": "Package",
               "version": "[2.1.0, )",
               "autoReferenced": true
-            },
-            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
-              "target": "Package",
-              "version": "[2.1.9, )"
             },
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
