@@ -13,6 +13,7 @@ namespace Automatisches_Kochbuch.Context
 
             //IEnumerable<int> richtige = zutatenVomUser.Intersect(ZutatenSet);
 
+            //Dummy Zutaten zum testen
             zutatenVomUser.Add(10);
             zutatenVomUser.Add(31);
             zutatenVomUser.Add(37);
@@ -112,9 +113,6 @@ namespace Automatisches_Kochbuch.Context
                 TQ[n - 1] += Convert.ToDouble(RUNew[n-1]) / Convert.ToDouble(RZNew[n-1]);
             }
 
-
-
-
             //Die Rezepte mit über 80% Trefferquote werden dem User angezeigt. 
             int w = 1;
             List<TabRezepte> MoeglicheRezepte = new List<TabRezepte>();
@@ -138,7 +136,6 @@ namespace Automatisches_Kochbuch.Context
                 w++;
 
             }
-
 
             return MoeglicheRezepte;
         }

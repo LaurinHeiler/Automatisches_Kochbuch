@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Automatisches_Kochbuch.Model;
+using Automatisches_Kochbuch.Context;
 
 namespace Automatisches_Kochbuch.Controllers
 {
@@ -20,7 +21,13 @@ namespace Automatisches_Kochbuch.Controllers
             _context = context;
         }
 
-        // ALLE ZUTATENKATEGORIEN ANZEIGEN
+        /// <summary>
+        /// Es werden alle ZutatenKategorien angezeigt
+        /// </summary>
+        /// <returns>
+        /// Alle ZutatenKategorien
+        /// </returns>
+
         // GET: api/ZutatenKategorien
         [HttpGet]
         public ActionResult<IEnumerable<TabZutatenKategorien>> GetTabZutatenKategorien()
@@ -29,6 +36,12 @@ namespace Automatisches_Kochbuch.Controllers
             return Ok(tabZutatenKategoriens);
         }
 
+        /// <summary>
+        /// Es wird nur eine ZutatenKategorien angezeigt
+        /// </summary>
+        /// <param name="id">
+        /// Die ID der ZutatenKatgorie
+        /// </param>
         // GET: api/ZutatenKategorien/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTabZutatenKategorien([FromRoute] int id)
@@ -48,6 +61,12 @@ namespace Automatisches_Kochbuch.Controllers
             return Ok(tabZutatenKategorien);
         }
 
+        /// <summary>
+        /// Es wird eine ZutatenKategorie geändert
+        /// </summary>
+        /// <param name="id">
+        /// Die ID der ZutatenKatgorie
+        /// </param>
         // PUT: api/ZutatenKategorien/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTabZutatenKategorien([FromRoute] int id, [FromBody] TabZutatenKategorien tabZutatenKategorien)
@@ -83,6 +102,12 @@ namespace Automatisches_Kochbuch.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Es wird eine neue ZutatenKategorie hinzugefügt
+        /// </summary>
+        /// <remarks>
+        /// Geben Sie eine neue ZutatenKategorie ein
+        /// </remarks>
         // POST: api/ZutatenKategorien
         [HttpPost]
         public async Task<IActionResult> PostTabZutatenKategorien([FromBody] TabZutatenKategorien tabZutatenKategorien)
@@ -98,6 +123,12 @@ namespace Automatisches_Kochbuch.Controllers
             return CreatedAtAction("GetTabZutatenKategorien", new { id = tabZutatenKategorien.Id }, tabZutatenKategorien);
         }
 
+        /// <summary>
+        /// Es wird eine ZutatenKategorie gelöscht
+        /// </summary>
+        /// <param name="id">
+        /// Die ID der ZutatenKatgorie
+        /// </param>
         // DELETE: api/ZutatenKategorien/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTabZutatenKategorien([FromRoute] int id)

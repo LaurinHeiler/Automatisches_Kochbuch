@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Automatisches_Kochbuch</name>
+    </assembly>
+    <members>
+        <member name="M:Automatisches_Kochbuch.Controllers.RezepteController.GetRezepte(System.Collections.Generic.SortedSet{System.Int32})">
+            <summary>
+            Es werden mögliche Rezepte angezeigt, welche der User kochen kann.
+            </summary>
+            <remarks>
+            Geben Sie die ID's der Rezepte ein.
+            </remarks>
+            <param name="ZutatenVomUser">
+            Die ID's der Zutat, die der User zuhause hat
+            </param>
+        </member>
+        <member name="M:Automatisches_Kochbuch.Controllers.ZutatenController.GetZutaten">
+            <summary>
+            Es werden alle Zutaten angezeigt
+            </summary>
+            <returns>
+            Alle Zutaten
+            </returns>
+        </member>
+        <member name="M:Automatisches_Kochbuch.Controllers.ZutatenController.GetTabZutaten(System.Int32)">
+            <summary>
+            Es wird nur eine Zutat angezeigt
+            </summary>
+            <param name="id">
+            Die ID der Zutat
+            </param>
+        </member>
+        <member name="M:Automatisches_Kochbuch.Controllers.ZutatenController.PutTabZutaten(System.Int32,Automatisches_Kochbuch.Model.TabZutaten)">
+            <summary>
+            Es wird eine Zutat geändert
+            </summary>
+            <param name="id">
+            Die ID der Zutat
+            </param>
+        </member>
+        <member name="M:Automatisches_Kochbuch.Controllers.ZutatenController.PostTabZutaten(Automatisches_Kochbuch.Model.TabZutaten)">
+            <summary>
+            Es wird eine Zutat hinzugefügt
+            </summary>
+            <remarks>
+            Geben Sie eine neue Zutat ein
+            </remarks>
+        </member>
+        <member name="M:Automatisches_Kochbuch.Controllers.ZutatenController.DeleteTabZutaten(System.Int32)">
+            <summary>
+            Es wird eine Zutat gelöscht
+            </summary>
+            <param name="id">
+            Die ID der Zutat
+            </param>
+        </member>
+        <member name="M:Automatisches_Kochbuch.Controllers.ZutatenKategorienController.GetTabZutatenKategorien">
+            <summary>
+            Es werden alle ZutatenKategorien angezeigt
+            </summary>
+            <returns>
+            Alle ZutatenKategorien
+            </returns>
+        </member>
+        <member name="M:Automatisches_Kochbuch.Controllers.ZutatenKategorienController.GetTabZutatenKategorien(System.Int32)">
+            <summary>
+            Es wird nur eine ZutatenKategorien angezeigt
+            </summary>
+            <param name="id">
+            Die ID der ZutatenKatgorie
+            </param>
+        </member>
+        <member name="M:Automatisches_Kochbuch.Controllers.ZutatenKategorienController.PutTabZutatenKategorien(System.Int32,Automatisches_Kochbuch.Model.TabZutatenKategorien)">
+            <summary>
+            Es wird eine ZutatenKategorie geändert
+            </summary>
+            <param name="id">
+            Die ID der ZutatenKatgorie
+            </param>
+        </member>
+        <member name="M:Automatisches_Kochbuch.Controllers.ZutatenKategorienController.PostTabZutatenKategorien(Automatisches_Kochbuch.Model.TabZutatenKategorien)">
+            <summary>
+            Es wird eine neue ZutatenKategorie hinzugefügt
+            </summary>
+            <remarks>
+            Geben Sie eine neue ZutatenKategorie ein
+            </remarks>
+        </member>
+        <member name="M:Automatisches_Kochbuch.Controllers.ZutatenKategorienController.DeleteTabZutatenKategorien(System.Int32)">
+            <summary>
+            Es wird eine ZutatenKategorie gelöscht
+            </summary>
+            <param name="id">
+            Die ID der ZutatenKatgorie
+            </param>
+        </member>
+    </members>
+</doc>

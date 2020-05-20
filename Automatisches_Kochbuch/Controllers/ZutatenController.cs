@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Automatisches_Kochbuch.Model;
+using Automatisches_Kochbuch.Context;
 
 namespace Automatisches_Kochbuch.Controllers
 {
@@ -20,6 +21,12 @@ namespace Automatisches_Kochbuch.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Es werden alle Zutaten angezeigt
+        /// </summary>
+        /// <returns>
+        /// Alle Zutaten
+        /// </returns>
         // GET: api/Zutaten
         [HttpGet]
         public ActionResult<IEnumerable<TabZutaten>> GetZutaten()
@@ -28,6 +35,12 @@ namespace Automatisches_Kochbuch.Controllers
             return Ok(tabZutaten);
         }
 
+        /// <summary>
+        /// Es wird nur eine Zutat angezeigt
+        /// </summary>
+        /// <param name="id">
+        /// Die ID der Zutat
+        /// </param>
         // GET: api/Zutaten/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTabZutaten([FromRoute] int id)
@@ -47,6 +60,12 @@ namespace Automatisches_Kochbuch.Controllers
             return Ok(tabZutaten);
         }
 
+        /// <summary>
+        /// Es wird eine Zutat geändert
+        /// </summary>
+        /// <param name="id">
+        /// Die ID der Zutat
+        /// </param>
         // PUT: api/Zutaten/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTabZutaten([FromRoute] int id, [FromBody] TabZutaten tabZutaten)
@@ -82,6 +101,12 @@ namespace Automatisches_Kochbuch.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Es wird eine Zutat hinzugefügt
+        /// </summary>
+        /// <remarks>
+        /// Geben Sie eine neue Zutat ein
+        /// </remarks>
         // POST: api/Zutaten
         [HttpPost]
         public async Task<IActionResult> PostTabZutaten([FromBody] TabZutaten tabZutaten)
@@ -97,6 +122,12 @@ namespace Automatisches_Kochbuch.Controllers
             return CreatedAtAction("GetTabZutaten", new { id = tabZutaten.Id }, tabZutaten);
         }
 
+        /// <summary>
+        /// Es wird eine Zutat gelöscht
+        /// </summary>
+        /// <param name="id">
+        /// Die ID der Zutat
+        /// </param>
         // DELETE: api/Zutaten/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTabZutaten([FromRoute] int id)

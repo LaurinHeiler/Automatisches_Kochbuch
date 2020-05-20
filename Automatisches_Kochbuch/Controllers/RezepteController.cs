@@ -24,6 +24,15 @@ namespace Automatisches_Kochbuch.Controllers
 
         //api/rezepte?ZutatenVomUser=37&ZutatenVomUser=31&ZutatenVomUser=10
 
+        /// <summary>
+        /// Es werden mögliche Rezepte angezeigt, welche der User kochen kann.
+        /// </summary>
+        /// <remarks>
+        /// Geben Sie die ID's der Rezepte ein.
+        /// </remarks>
+        /// <param name="ZutatenVomUser">
+        /// Die ID's der Zutat, die der User zuhause hat
+        /// </param>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

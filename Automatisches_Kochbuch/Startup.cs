@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Automatisches_Kochbuch.Context;
 using Automatisches_Kochbuch.Model;
@@ -32,7 +34,15 @@ namespace Automatisches_Kochbuch
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AutomatischesKochbuchAPI", Version = "v1" });
+
+                //Für die XML Comments in Swagger
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.XML";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+                c.IncludeXmlComments(xmlPath);
             });
+
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<AutomatischesKochbuchContext>(opt => opt.UseMySql(Configuration["ConnectionString:Automatisches_Kochbuch"]));

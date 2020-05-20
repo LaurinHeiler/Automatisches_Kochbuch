@@ -48,3 +48,4 @@ C:\Users\Laurin\Documents\4.Klasse\SOF_ANP\Semesterprojekt_mit_WebServices\Kochb
 C:\Users\Laurin\Documents\4.Klasse\SOF_ANP\Semesterprojekt_mit_WebServices\Kochbuch_VS_2019\Automatisches_Kochbuch\obj\Debug\netcoreapp2.1\Automatisches_Kochbuch.pdb
 C:\Users\Laurin\Documents\4.Klasse\SOF_ANP\Semesterprojekt_mit_WebServices\Kochbuch_VS_2019\Automatisches_Kochbuch\obj\Debug\netcoreapp2.1\Automatisches_Kochbuch.genruntimeconfig.cache
 C:\Users\Laurin\Documents\4.Klasse\SOF_ANP\Semesterprojekt_mit_WebServices\Kochbuch_VS_2019\Automatisches_Kochbuch\obj\Debug\netcoreapp2.1\Automatisches_Kochbuch.csproj.CoreCompileInputs.cache
+C:\Users\Laurin\Documents\4.Klasse\SOF_ANP\Semesterprojekt_mit_WebServices\Kochbuch_VS_2019\Automatisches_Kochbuch\bin\Debug\netcoreapp2.1\Automatisches_Kochbuch.xml

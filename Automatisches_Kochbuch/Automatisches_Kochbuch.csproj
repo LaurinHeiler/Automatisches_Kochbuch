@@ -4,6 +4,10 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\Laurin\Documents\4.Klasse\SOF_ANP\Semesterprojekt_mit_WebServices\Kochbuch_VS_2019\Automatisches_Kochbuch\Automatisches_Kochbuch.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="Migrations\20200417193504_Basics.cs" />
     <Compile Remove="Migrations\20200417193504_Basics.Designer.cs" />
