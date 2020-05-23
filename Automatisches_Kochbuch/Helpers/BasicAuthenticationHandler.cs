@@ -55,7 +55,7 @@ namespace Automatisches_Kochbuch.Helpers
                 string password = credentials[1];
 
                 //Querie verwenden, um User zu authentifizieren
-                user = await _context.Authenticate(username, password);
+                user = await _context.AuthenticateAsync(username, password);
 
             }
             //sollte irgendetwas mit dem Authentication-Header nicht klappen

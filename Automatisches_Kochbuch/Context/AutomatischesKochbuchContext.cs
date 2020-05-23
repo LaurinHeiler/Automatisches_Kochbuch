@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Automatisches_Kochbuch.Context;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Automatisches_Kochbuch.Model
@@ -30,6 +32,10 @@ namespace Automatisches_Kochbuch.Model
             SaveChanges();
         }
 
+        public Task SaveChangesAsynchron()
+        {
+            return SaveChangesAsync();
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

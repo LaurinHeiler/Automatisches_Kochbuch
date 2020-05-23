@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -49,8 +50,17 @@ namespace Automatisches_Kochbuch
                     .AddScheme<AuthenticationSchemeOptions,
                         BasicAuthenticationHandler>("BasicAuthentication", null);
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddDbContext<AutomatischesKochbuchContext>(opt => opt.UseMySql(Configuration["ConnectionString:Automatisches_Kochbuch"]));
+            services.AddMvc()
+                            //damit keine unendliche Verschachtelung durch die
+                            //Navigation-Properties entstehen
+                             .AddJsonOptions(options =>
+                             {
+                                 options.SerializerSettings.ReferenceLoopHandling =
+                                 Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                             })
+                             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddDbContext<AutomatischesKochbuchContext>(opt => opt.UseLazyLoadingProxies().UseMySql(Configuration["ConnectionString:Automatisches_Kochbuch"]));
             services.AddScoped<IDataContext, AutomatischesKochbuchContext>();
         }
 

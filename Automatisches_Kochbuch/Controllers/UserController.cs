@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Automatisches_Kochbuch.Model;
 using Automatisches_Kochbuch.Context;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace Automatisches_Kochbuch.Controllers
 {
@@ -25,80 +26,28 @@ namespace Automatisches_Kochbuch.Controllers
 
         // GET: api/User
         [HttpGet]
+        //[Authorize(Roles = Role.ADMIN)], wenn ROLEN gemacht wird
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<IEnumerable<TabUser>>> GetAll()
+        public async Task<ActionResult<IEnumerable<TabUser>>> GetAllAsync()
         {
             // Querie verwenden, um alle User zu holen
-            IEnumerable<TabUser> users = await _context.GetAll();
+            IEnumerable<TabUser> users = await _context.GetAllAsync();
 
             //von der Querie erhaltene User zurückgeben
             return Ok(users);
         }
 
-        // GET: api/User/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetTabUser([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var tabUser = await _context.TabUser.FindAsync(id);
-
-            if (tabUser == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(tabUser);
-        }
-
-        // PUT: api/User/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTabUser([FromRoute] int id, [FromBody] TabUser tabUser)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != tabUser.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(tabUser).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TabUserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
 
         // POST: api/User/authenticate
         [AllowAnonymous] //geht immer, ohne Authentication
         [HttpPost("authenticate")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<TabUser>> AuthenticateUser([FromBody] TabUser userParam)
+        public async Task<ActionResult<TabUser>> AuthenticateUserAsync([FromBody] TabUser userParam)
         {
             // Querie verwenden, um User zu authentifizieren
-            TabUser user = await _context.Authenticate(userParam.Vorname, userParam.Passwort);
+            TabUser user = await _context.AuthenticateAsync(userParam.Vorname, userParam.Passwort);
 
             //wenn die Querie keinen entsprechenden User zurückgibt, gibt es keinen mit dem entsprechden
             //Vornamen und PW
@@ -112,30 +61,107 @@ namespace Automatisches_Kochbuch.Controllers
 
         }
 
-        // DELETE: api/User/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTabUser([FromRoute] int id)
+        //GET: api/users/5
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<TabUser>> GetUserAsync(int id)
         {
-            if (!ModelState.IsValid)
+            //Claims in der erzeugten Identity können hier verwendet werden
+            //-> User können nur ihre eigenen Daten abrufen
+            if (id != Convert.ToInt16(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                //!User.IsInRole(Role.ADMIN)) // Admins können jeden User abrufen WENN ROLES
             {
-                return BadRequest(ModelState);
+                return Forbid();
             }
 
-            var tabUser = await _context.TabUser.FindAsync(id);
-            if (tabUser == null)
+            TabUser user = await _context.GetUserAsync(id);
+
+            if (user == null)
             {
-                return NotFound();
+                return NotFound("User doesn't exist.");
             }
 
-            _context.TabUser.Remove(tabUser);
-            await _context.SaveChangesAsync();
-
-            return Ok(tabUser);
+            return Ok(user);
         }
 
-        private bool TabUserExists(int id)
+        //POST: api/user/register
+        [AllowAnonymous] //Damit jeder User seinen eigenen Account selber erstellen kann.
+        [HttpPost("register")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        public async Task<ActionResult<TabUser>> RegisterUserAsync([FromBody] TabUser userParam)
         {
-            return _context.TabUser.Any(e => e.Id == id);
+            if (userParam == null)
+            {
+                return BadRequest();
+            }
+
+            TabUser user = await _context.RegisterUserAsync(userParam);
+
+
+            return CreatedAtAction("GetUserAsync", new { id = user.Id }, user); //Wenn registrierung erfolgreich
+            //wird der Gerade erstellte User angezeigt
+        }
+
+        //PUT: api/users/5
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<TabUser>> UpdateUserAsync(int id, [FromBody] TabUser userParam)
+        {
+            if (userParam == null || id != userParam.Id)
+            {
+                return BadRequest();
+            }
+
+            //Claims in der erzeugten Identity können hier verwendet werden
+            //-> User können nur ihre eigenen Daten abrufen
+            if (id != Convert.ToInt16(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            //!User.IsInRole(Role.ADMIN)) // Admins können jeden User ändern WENN ROLES
+            {
+                return Forbid();
+            }
+
+            TabUser user = await _context.UpdateUserdataAsync(userParam);
+
+            if (user == null)
+            {
+                return NotFound("User doesn't exist.");
+            }
+
+            return Ok(user);
+
+        }
+
+        //DELETE: api/users/5
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<TabUser>> DeleteUserAsync(int id)
+        {
+            //Claims in der erzeugten Identity können hier verwendet werden
+            //-> User können nur ihre eigenen Daten abrufen
+            if (id != Convert.ToInt16(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                //!User.IsInRole(Role.ADMIN)) // Admins können jeden User löschen WENN ROLES
+            {
+                return Forbid();
+            }
+
+            bool result = await _context.DeleteUserAsync(id);
+
+            if (result)
+            {
+                return NoContent();
+            }
+
+            return NotFound("User doesn't exist.");
+
         }
     }
 }

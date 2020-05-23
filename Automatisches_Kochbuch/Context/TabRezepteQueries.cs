@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace Automatisches_Kochbuch.Context
@@ -137,7 +138,7 @@ namespace Automatisches_Kochbuch.Context
 
             }
 
-            return MoeglicheRezepte;
+            return MoeglicheRezepte.Select(x => { x.Bild = null; return x; }); //Bild auf null, weil es nur den Code anzeigt und nicht das Bild
         }
     }
 }

@@ -19,5 +19,6 @@ namespace Automatisches_Kochbuch.Context
         DbSet<TabZutatenKategorien> TabZutatenKategorien { get; set; }
 
         void Save();
+        Task SaveChangesAsynchron();
     }
 }
