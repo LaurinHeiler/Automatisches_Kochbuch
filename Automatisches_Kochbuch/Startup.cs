@@ -5,7 +5,9 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Automatisches_Kochbuch.Context;
+using Automatisches_Kochbuch.Helpers;
 using Automatisches_Kochbuch.Model;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -42,7 +44,10 @@ namespace Automatisches_Kochbuch
                 c.IncludeXmlComments(xmlPath);
             });
 
-
+            //BasicAuthentication konfigurieren
+            services.AddAuthentication("BasicAuthentication")
+                    .AddScheme<AuthenticationSchemeOptions,
+                        BasicAuthenticationHandler>("BasicAuthentication", null);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<AutomatischesKochbuchContext>(opt => opt.UseMySql(Configuration["ConnectionString:Automatisches_Kochbuch"]));
@@ -60,6 +65,9 @@ namespace Automatisches_Kochbuch
             {
                 app.UseHsts();
             }
+
+            //Authentication in der Anwendung verwenden
+            app.UseAuthentication();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
