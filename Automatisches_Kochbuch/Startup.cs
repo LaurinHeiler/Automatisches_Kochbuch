@@ -60,7 +60,7 @@ namespace Automatisches_Kochbuch
                              })
                              .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddDbContext<AutomatischesKochbuchContext>(opt => opt.UseLazyLoadingProxies().UseMySql(Configuration["ConnectionString:Automatisches_Kochbuch"]));
+            services.AddDbContext<AutomatischesKochbuchContext>(opt => opt.UseMySql(Configuration["ConnectionString:Automatisches_Kochbuch"]));
             services.AddScoped<IDataContext, AutomatischesKochbuchContext>();
         }
 
