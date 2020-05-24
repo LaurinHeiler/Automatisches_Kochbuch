@@ -73,7 +73,12 @@ namespace Automatisches_Kochbuch.Context
 
         public static async Task<TabUser> RegisterUserAsync(this IDataContext context, TabUser userParam)
         {
+            // prüfen, ob der Username schon vergeben ist / WENN USERNAME IN DB
+            //bool usernameVorhanden = await context.TabUser.AnyAsync(x =>
+            //    x.Username == userParam.Username);
 
+            //falls keine gültige Rolle angegeben wurde,
+            //bekommt der neue User die Rolle "user"
             //FÜR DIE ROLEN KLASSE/DB!
             //if (!Role.IsValid(userParam.Role))
             //{
@@ -93,12 +98,32 @@ namespace Automatisches_Kochbuch.Context
             TabUser userDB = await context.TabUser.SingleOrDefaultAsync(u =>
             u.Id == userParam.Id);
 
+            //falls ein User gefunden wurde, dessen Daten aktualisieren
             if (userDB != null)
             {
+                ////prüfen, ob der Username geändert wrude / ERST WENN USER IN DER DB IST
+                //if (userDB.UserName != userParam.UserName)
+                //{
+                //    //prüfen, ob der neue Username noch frei ist
+                //    bool usernameVorhanden = await _context.Users.AnyAsync(x =>
+                //        x.UserName == userParam.UserName);
 
+                //    if (usernameVorhanden)
+                //    {
+                //        return null;
+                //    }
+                //    //neuen Usernamen Übernehmen
+                //    userDB.UserName = userParam.UserName;
+                //}
+
+                //prüfen, ob die Rolle geändert wurde
                 //FÜR DIE ROLEN KLASSE / DB
                 //if (userDB.Role != userParam.Role)
                 //{
+
+                //    //falls keine gültige Rolle angegeben wurde,
+                //    //bekommt der neue User die Rolle "user"
+                //    string userParamRole = userParam.Role.Trim().ToLower();
                 //    if (!Role.IsValid(userParam.Role))
                 //    {
                 //        userParam.Role = Role.USER;

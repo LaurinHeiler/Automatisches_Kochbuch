@@ -26,7 +26,7 @@ namespace Automatisches_Kochbuch.Controllers
 
         // GET: api/User
         [HttpGet]
-        //[Authorize(Roles = Role.ADMIN)], wenn ROLEN gemacht wird
+        [Authorize(Roles = Role.ADMIN)] //nur authentifizierte Admins können alle User abrufen
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<IEnumerable<TabUser>>> GetAllAsync()
@@ -70,8 +70,8 @@ namespace Automatisches_Kochbuch.Controllers
         {
             //Claims in der erzeugten Identity können hier verwendet werden
             //-> User können nur ihre eigenen Daten abrufen
-            if (id != Convert.ToInt16(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-                //!User.IsInRole(Role.ADMIN)) // Admins können jeden User abrufen WENN ROLES
+            if (id != Convert.ToInt16(User.FindFirst(ClaimTypes.NameIdentifier).Value) &&
+                !User.IsInRole(Role.ADMIN)) // Admins können jeden User abrufen
             {
                 return Forbid();
             }
@@ -121,8 +121,8 @@ namespace Automatisches_Kochbuch.Controllers
 
             //Claims in der erzeugten Identity können hier verwendet werden
             //-> User können nur ihre eigenen Daten abrufen
-            if (id != Convert.ToInt16(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-            //!User.IsInRole(Role.ADMIN)) // Admins können jeden User ändern WENN ROLES
+            if (id != Convert.ToInt16(User.FindFirst(ClaimTypes.NameIdentifier).Value) &&
+            !User.IsInRole(Role.ADMIN)) // Admins können jeden User ändern
             {
                 return Forbid();
             }
@@ -147,8 +147,8 @@ namespace Automatisches_Kochbuch.Controllers
         {
             //Claims in der erzeugten Identity können hier verwendet werden
             //-> User können nur ihre eigenen Daten abrufen
-            if (id != Convert.ToInt16(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-                //!User.IsInRole(Role.ADMIN)) // Admins können jeden User löschen WENN ROLES
+            if (id != Convert.ToInt16(User.FindFirst(ClaimTypes.NameIdentifier).Value) &&
+                !User.IsInRole(Role.ADMIN)) // Admins können jeden User löschen
             {
                 return Forbid();
             }
