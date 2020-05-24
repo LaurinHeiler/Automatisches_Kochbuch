@@ -14,7 +14,7 @@ namespace Automatisches_Kochbuch.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize] //Bei allen Action-Methoden wird die Authentifikation des Benutzers verlang.
+    [Authorize] //Bei allen Action-Methoden wird die Authentifikation des Benutzers verlang, außer bei [AllowAnonymous].
     public class UserController : ControllerBase
     {
         private readonly AutomatischesKochbuchContext _context;

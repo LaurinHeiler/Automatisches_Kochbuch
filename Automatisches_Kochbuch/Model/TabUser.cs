@@ -34,13 +34,13 @@ namespace Automatisches_Kochbuch.Model
         public int AnzahlPortionen { get; set; }
 
         [DisplayName("Vegetarier")]
-        public sbyte? Vegetarier { get; set; }
+        public bool Vegetarier { get; set; }
 
         [DisplayName("Veganer")]
-        public sbyte? Veganer { get; set; }
+        public bool Veganer { get; set; }
 
         [DisplayName("glutenfrei")]
-        public sbyte? Glutenfrei { get; set; }
+        public bool Glutenfrei { get; set; }
 
         public virtual ICollection<LnkTabUserRezepte> LnkTabUserRezepte { get; set; }
         public virtual ICollection<LnkTabUserZutaten> LnkTabUserZutaten { get; set; }

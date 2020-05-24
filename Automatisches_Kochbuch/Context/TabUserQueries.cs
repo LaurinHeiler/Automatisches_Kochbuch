@@ -109,7 +109,8 @@ namespace Automatisches_Kochbuch.Context
                 userDB.Vorname = userParam.Vorname;
                 userDB.Nachname = userParam.Nachname;
                 userDB.Id = userParam.Id;
-                //weitere Properties, wenn die DB endlich geändert ist
+                userDB.Passwort = userParam.Passwort;
+                //weitere Properties, wenn die DB endlich geändert ist (Vegi, Vegan, Gluten)
 
                 await context.SaveChangesAsynchron();
 
