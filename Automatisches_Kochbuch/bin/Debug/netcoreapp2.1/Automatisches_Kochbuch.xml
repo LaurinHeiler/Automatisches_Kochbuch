@@ -4,6 +4,21 @@
         <name>Automatisches_Kochbuch</name>
     </assembly>
     <members>
+        <member name="F:Automatisches_Kochbuch.Model.Role._validRoles">
+            <summary>
+            Dieses Set muss alle Rollen beinhalten.
+            Sonst, wird die IsValid-Methode nicht richtig funktionieren.
+            </summary>
+        </member>
+        <member name="M:Automatisches_Kochbuch.Model.Role.IsValid(System.String)">
+            <summary>
+            Bestimmt ob die Rolle gültig ist oder nicht
+            </summary>
+            <param name="role">die Rolle zum überprüfen</param>
+            <returns>
+            Es wird true zurück gegeben, falls richtig, sonst false
+            </returns>
+        </member>
         <member name="M:Automatisches_Kochbuch.Controllers.RezepteController.GetRezepte(System.Collections.Generic.SortedSet{System.Int32})">
             <summary>
             Es werden mögliche Rezepte angezeigt, welche der User kochen kann.

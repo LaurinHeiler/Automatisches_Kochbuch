@@ -30,6 +30,10 @@ namespace Automatisches_Kochbuch.Model
         public string Passwort { get; set; }
 
         [Required]
+        [DisplayName("Rolle")]
+        public string Role { get; set; }
+
+        [Required]
         [DisplayName("AnzahlPortionen")]
         public int AnzahlPortionen { get; set; }
 
