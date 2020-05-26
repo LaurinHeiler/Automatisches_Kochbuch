@@ -49,15 +49,22 @@ namespace Automatisches_Kochbuch.Controllers
         /// <remarks>
         /// Geben Sie Ihre Zugangsdaten ein.
         /// </remarks>
-        // POST: api/User/authenticate
-        [AllowAnonymous] //geht immer, ohne Authentication
+        //Als Bespiel diese Daten in Body bei Postman eingeben:
+                	//"vorname": "Daniel",
+                	//"nachname": "Romen",
+                	//"passwort": "123",
+                	//"Role": "admin",
+                	//"Username": "DaRo"
+
+    // POST: api/User/authenticate
+    [AllowAnonymous] //geht immer, ohne Authentication
         [HttpPost("authenticate")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<TabUser>> AuthenticateUserAsync([FromBody] TabUser userParam)
         {
             // Querie verwenden, um User zu authentifizieren
-            TabUser user = await _context.AuthenticateAsync(userParam.Vorname, userParam.Passwort);
+            TabUser user = await _context.AuthenticateAsync(userParam.Username, userParam.Passwort);
 
             //wenn die Querie keinen entsprechenden User zurückgibt, gibt es keinen mit dem entsprechden
             //Vornamen und PW

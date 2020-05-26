@@ -12,11 +12,11 @@ namespace Automatisches_Kochbuch.Context
 {
     public static class TabUserQueries
     {
-        public static async Task<TabUser> AuthenticateAsync(this IDataContext context, string vorname, string passwort)
+        public static async Task<TabUser> AuthenticateAsync(this IDataContext context, string username, string passwort)
         {
             //entsprechenden User aus der DB holen
             TabUser user = await Task.Run(() =>
-            context.TabUser.SingleOrDefaultAsync(x => x.Vorname == vorname &&
+            context.TabUser.SingleOrDefaultAsync(x => x.Username == username &&
                                                  x.Passwort == passwort));
             //falls ein User gefunden wurde, Passwort schwärzen
             if (user != null)
@@ -73,17 +73,16 @@ namespace Automatisches_Kochbuch.Context
 
         public static async Task<TabUser> RegisterUserAsync(this IDataContext context, TabUser userParam)
         {
-            // prüfen, ob der Username schon vergeben ist / WENN USERNAME IN DB
-            //bool usernameVorhanden = await context.TabUser.AnyAsync(x =>
-            //    x.Username == userParam.Username);
+            //prüfen, ob der Username schon vergeben ist
+            bool usernameVorhanden = await context.TabUser.AnyAsync(x =>
+                x.Username == userParam.Username);
 
             //falls keine gültige Rolle angegeben wurde,
             //bekommt der neue User die Rolle "user"
-            //FÜR DIE ROLEN KLASSE/DB!
-            //if (!Role.IsValid(userParam.Role))
-            //{
-            //    userParam.Role = Role.USER;
-            //}
+            if (!Role.IsValid(userParam.Role))
+            {
+                userParam.Role = Role.USER;
+            }
 
             await context.TabUser.AddAsync(userParam);
             await context.SaveChangesAsynchron();
@@ -101,40 +100,40 @@ namespace Automatisches_Kochbuch.Context
             //falls ein User gefunden wurde, dessen Daten aktualisieren
             if (userDB != null)
             {
-                ////prüfen, ob der Username geändert wrude / ERST WENN USER IN DER DB IST
-                //if (userDB.UserName != userParam.UserName)
-                //{
-                //    //prüfen, ob der neue Username noch frei ist
-                //    bool usernameVorhanden = await _context.Users.AnyAsync(x =>
-                //        x.UserName == userParam.UserName);
+                //prüfen, ob der Username geändert wrude
+                if (userDB.Username != userParam.Username)
+                {
+                    //prüfen, ob der neue Username noch frei ist
+                    bool usernameVorhanden = await context.TabUser.AnyAsync(x =>
+                        x.Username == userParam.Username);
 
-                //    if (usernameVorhanden)
-                //    {
-                //        return null;
-                //    }
-                //    //neuen Usernamen Übernehmen
-                //    userDB.UserName = userParam.UserName;
-                //}
+                    if (usernameVorhanden)
+                    {
+                        return null;
+                    }
+                    //neuen Usernamen Übernehmen
+                    userDB.Username = userParam.Username;
+                }
 
                 //prüfen, ob die Rolle geändert wurde
-                //FÜR DIE ROLEN KLASSE / DB
-                //if (userDB.Role != userParam.Role)
-                //{
+                if (userDB.Role != userParam.Role)
+                {
 
-                //    //falls keine gültige Rolle angegeben wurde,
-                //    //bekommt der neue User die Rolle "user"
-                //    string userParamRole = userParam.Role.Trim().ToLower();
-                //    if (!Role.IsValid(userParam.Role))
-                //    {
-                //        userParam.Role = Role.USER;
-                //    }
-                //}
+                    //falls keine gültige Rolle angegeben wurde,
+                    //bekommt der neue User die Rolle "user"
+                    string userParamRole = userParam.Role.Trim().ToLower();
+                    if (!Role.IsValid(userParam.Role))
+                    {
+                        userParam.Role = Role.USER;
+                    }
+                }
 
                 //Daten werden aktualisiert
                 userDB.Vorname = userParam.Vorname;
                 userDB.Nachname = userParam.Nachname;
                 userDB.Id = userParam.Id;
                 userDB.Passwort = userParam.Passwort;
+                userDB.Username = userParam.Username;
                 //weitere Properties, wenn die DB endlich geändert ist (Vegi, Vegan, Gluten)
 
                 await context.SaveChangesAsynchron();

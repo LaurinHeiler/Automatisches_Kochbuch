@@ -26,6 +26,10 @@ namespace Automatisches_Kochbuch.Model
         public string Nachname { get; set; }
 
         [Required]
+        [DisplayName("Username")]
+        public string Username { get; set; }
+
+        [Required]
         [DisplayName("Passwort")]
         public string Passwort { get; set; }
 
