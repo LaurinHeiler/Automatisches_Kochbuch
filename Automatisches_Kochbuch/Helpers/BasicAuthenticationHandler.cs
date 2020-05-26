@@ -78,7 +78,7 @@ namespace Automatisches_Kochbuch.Helpers
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Vorname),
-                //new Claim(ClaimTypes.Role, user.Role)   NOCH KEINE ROLE IN DER USER DB
+                new Claim(ClaimTypes.Role, user.Role)
             };
 
             //aus den Claims eine Identity und ein AuthenticationTicket

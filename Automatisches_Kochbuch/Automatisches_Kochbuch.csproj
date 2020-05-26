@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -11,10 +11,11 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200417193504_Basics.cs" />
     <Compile Remove="Migrations\20200417193504_Basics.Designer.cs" />
+    <Compile Remove="Migrations\20200526083509_Test.cs" />
+    <Compile Remove="Migrations\20200526083509_Test.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
