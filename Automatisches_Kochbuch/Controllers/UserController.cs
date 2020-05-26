@@ -23,7 +23,12 @@ namespace Automatisches_Kochbuch.Controllers
         {
             _context = context;
         }
-
+        /// <summary>
+        /// Es werden alle User angezeigt
+        /// </summary>
+        /// <returns>
+        /// Alle User
+        /// </returns>
         // GET: api/User
         [HttpGet]
         [Authorize(Roles = Role.ADMIN)] //nur authentifizierte Admins können alle User abrufen
@@ -38,7 +43,12 @@ namespace Automatisches_Kochbuch.Controllers
             return Ok(users);
         }
 
-
+        /// <summary>
+        /// Der User wird authentifiziert
+        /// </summary>
+        /// <remarks>
+        /// Geben Sie Ihre Zugangsdaten ein.
+        /// </remarks>
         // POST: api/User/authenticate
         [AllowAnonymous] //geht immer, ohne Authentication
         [HttpPost("authenticate")]
@@ -60,7 +70,13 @@ namespace Automatisches_Kochbuch.Controllers
             return Ok(user);
 
         }
-
+        /// <summary>
+        /// Es wird nur ein User angezeigt
+        /// </summary>
+        /// <param name="id">
+        /// Die ID des User
+        /// </param>
+        // GET: api/Zutaten/5
         //GET: api/users/5
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -85,7 +101,12 @@ namespace Automatisches_Kochbuch.Controllers
 
             return Ok(user);
         }
-
+        /// <summary>
+        /// Es wird ein User hinzugefügt
+        /// </summary>
+        /// <remarks>
+        /// Geben Sie Ihre gewünschten Userdaten ein
+        /// </remarks>
         //POST: api/user/register
         [AllowAnonymous] //Damit jeder User seinen eigenen Account selber erstellen kann.
         [HttpPost("register")]
@@ -105,7 +126,12 @@ namespace Automatisches_Kochbuch.Controllers
             return CreatedAtAction("GetUserAsync", new { id = user.Id }, user); //Wenn registrierung erfolgreich
             //wird der Gerade erstellte User angezeigt
         }
-
+        /// <summary>
+        /// Es wird ein User geändert
+        /// </summary>
+        /// <param name="id">
+        /// Die ID des User
+        /// </param>
         //PUT: api/users/5
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -137,7 +163,12 @@ namespace Automatisches_Kochbuch.Controllers
             return Ok(user);
 
         }
-
+        /// <summary>
+        /// Es wird ein User gelöscht
+        /// </summary>
+        /// <param name="id">
+        /// Die ID des User
+        /// </param>
         //DELETE: api/users/5
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

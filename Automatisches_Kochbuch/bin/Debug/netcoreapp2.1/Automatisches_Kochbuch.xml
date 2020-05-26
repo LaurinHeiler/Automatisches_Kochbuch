@@ -30,6 +30,54 @@
             Die ID's der Zutat, die der User zuhause hat
             </param>
         </member>
+        <member name="M:Automatisches_Kochbuch.Controllers.UserController.GetAllAsync">
+            <summary>
+            Es werden alle User angezeigt
+            </summary>
+            <returns>
+            Alle User
+            </returns>
+        </member>
+        <member name="M:Automatisches_Kochbuch.Controllers.UserController.AuthenticateUserAsync(Automatisches_Kochbuch.Model.TabUser)">
+            <summary>
+            Der User wird authentifiziert
+            </summary>
+            <remarks>
+            Geben Sie Ihre Zugangsdaten ein.
+            </remarks>
+        </member>
+        <member name="M:Automatisches_Kochbuch.Controllers.UserController.GetUserAsync(System.Int32)">
+            <summary>
+            Es wird nur ein User angezeigt
+            </summary>
+            <param name="id">
+            Die ID des User
+            </param>
+        </member>
+        <member name="M:Automatisches_Kochbuch.Controllers.UserController.RegisterUserAsync(Automatisches_Kochbuch.Model.TabUser)">
+            <summary>
+            Es wird ein User hinzugefügt
+            </summary>
+            <remarks>
+            Geben Sie Ihre gewünschten Userdaten ein
+            </remarks>
+        </member>
+        <member name="M:Automatisches_Kochbuch.Controllers.UserController.UpdateUserAsync(System.Int32,Automatisches_Kochbuch.Model.TabUser)">
+            <summary>
+            Es wird ein User geändert
+            </summary>
+            <param name="id">
+            Die ID des User
+            </param>
+        </member>
+        <member name="M:Automatisches_Kochbuch.Controllers.UserController.DeleteUserAsync(System.Int32)">
+            <summary>
+            Es wird ein User gelöscht
+            </summary>
+            <param name="id">
+            Die ID des User
+            </param>
+        </member>
         <member name="M:Automatisches_Kochbuch.Controllers.ZutatenController.GetZutaten">
             <summary>
             Es werden alle Zutaten angezeigt

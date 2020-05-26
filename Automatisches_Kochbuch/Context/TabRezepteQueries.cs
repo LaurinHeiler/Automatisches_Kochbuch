@@ -70,9 +70,9 @@ namespace Automatisches_Kochbuch.Context
 
             #region AlterLangsamerCode
             //RZ gibt die notwendige Menge an Zutaten pro Rezept an.
-            int[] RZ = new int[context.TabRezepte.Count()];
+            //int[] RZ = new int[context.TabRezepte.Count()];
             //RU gibt die vorhandenen Zutaten des Users pro Rezept an.
-            int[] RU = new int[context.TabRezepte.Count()];
+            //int[] RU = new int[context.TabRezepte.Count()];
 
             //for (int n = 1; n <= context.TabRezepte.Count(); n++)
             //{
