@@ -8,6 +8,9 @@ namespace Automatisches_Kochbuch.Dtos
 {
     public class RezeptReadDto
     {
+        [DataMember(Name = "ID")]
+        public int Id { get; set; }
+
         [DataMember(Name = "Rezeptname")]
         public string Rezeptname { get; set; }
 

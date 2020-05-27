@@ -62,6 +62,10 @@ namespace Automatisches_Kochbuch.Controllers
         /// Die ID des Rezeptes und die Anzahl Personen bzw. Portionen des Users.
         /// </param>
         //GET api/rezepte/5
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpGet("{id_rezept}/{AnzahlPersonen}")]
         public ActionResult<string> GetMehrZumGericht(int id_rezept, int AnzahlPersonen)
         {
@@ -81,7 +85,7 @@ namespace Automatisches_Kochbuch.Controllers
         /// Die ID des Rezepts
         /// </param>
         // GET: api/rezepte/5
-        [Authorize(Roles = Role.ADMIN)] //nur authentifizierte Admins können alle User abrufen
+        [Authorize(Roles = Role.ADMIN)] //nur authentifizierte Admins können alle Rezepte abrufen
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
