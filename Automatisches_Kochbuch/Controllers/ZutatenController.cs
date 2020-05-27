@@ -58,7 +58,7 @@ namespace Automatisches_Kochbuch.Controllers
 
             if (tabZutaten == null)
             {
-                return NotFound();
+                return NotFound("Es wurden keine Zutaten gefunden!");
             }
 
             return Ok(_mapper.Map<ZutatenReadDto>(tabZutaten));
@@ -81,7 +81,7 @@ namespace Automatisches_Kochbuch.Controllers
 
             if (id != tabZutaten.Id)
             {
-                return BadRequest();
+                return BadRequest("Es konnten keine Zutaten gefunden werden!");
             }
 
             _context.Entry(tabZutaten).State = EntityState.Modified;
@@ -94,7 +94,7 @@ namespace Automatisches_Kochbuch.Controllers
             {
                 if (!TabZutatenExists(id))
                 {
-                    return NotFound();
+                    return NotFound("Es wurden keine Zutaten gefunden, versuchen Sie es nocheinmal!");
                 }
                 else
                 {
@@ -144,7 +144,7 @@ namespace Automatisches_Kochbuch.Controllers
             var tabZutaten = await _context.TabZutaten.FindAsync(id);
             if (tabZutaten == null)
             {
-                return NotFound();
+                return NotFound("Es konnten keine Zutaten gefunden werden!");
             }
 
             _context.TabZutaten.Remove(tabZutaten);

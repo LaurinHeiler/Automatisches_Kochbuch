@@ -44,10 +44,10 @@ namespace Automatisches_Kochbuch.Controllers
         /// Es wird nur eine ZutatenKategorien angezeigt
         /// </summary>
         /// <param name="id">
-        /// Die ID der ZutatenKatgorie
+        /// Die ID der ZutatenKategorie
         /// </param>
         /// <returns>
-        /// Gibt eine ZutenKategorie zurück.
+        /// Gibt eine ZutatenKategorie zurück.
         /// </returns>
         // GET: api/ZutatenKategorien/5
         [HttpGet("{id}")]
@@ -62,7 +62,7 @@ namespace Automatisches_Kochbuch.Controllers
 
             if (tabZutatenKategorien == null)
             {
-                return NotFound();
+                return NotFound("Es konnte keine Kategorie für die Zutat gefunden werden!");
             }
 
             return Ok(_mapper.Map<ZutatenKategorienReadDto>(tabZutatenKategorien));
@@ -72,7 +72,7 @@ namespace Automatisches_Kochbuch.Controllers
         /// Es wird eine ZutatenKategorie geändert
         /// </summary>
         /// <param name="id">
-        /// Die ID der ZutatenKatgorie
+        /// Die ID der ZutatenKategorie
         /// </param>
         // PUT: api/ZutatenKategorien/5
         [HttpPut("{id}")]
@@ -85,7 +85,7 @@ namespace Automatisches_Kochbuch.Controllers
 
             if (id != tabZutatenKategorien.Id)
             {
-                return BadRequest();
+                return BadRequest("Es konnte keine Kategorie für die Zutat gefunden werden!");
             }
 
             _context.Entry(tabZutatenKategorien).State = EntityState.Modified;
@@ -98,7 +98,7 @@ namespace Automatisches_Kochbuch.Controllers
             {
                 if (!TabZutatenKategorienExists(id))
                 {
-                    return NotFound();
+                    return NotFound("Es konnte keine Kategorie für die Zutat gefunden werden!");
                 }
                 else
                 {
@@ -148,7 +148,7 @@ namespace Automatisches_Kochbuch.Controllers
             var tabZutatenKategorien = await _context.TabZutatenKategorien.FindAsync(id);
             if (tabZutatenKategorien == null)
             {
-                return NotFound();
+                return NotFound("Es konnte keine Kategorie für die Zutat gefunden werden!");
             }
 
             _context.TabZutatenKategorien.Remove(tabZutatenKategorien);

@@ -14,7 +14,7 @@ namespace Automatisches_Kochbuch.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize] //Bei allen Action-Methoden wird die Authentifikation des Benutzers verlang, außer bei [AllowAnonymous].
+    [Authorize] //Bei allen Action-Methoden wird die Authentication des Benutzers verlangt, außer bei [AllowAnonymous].
     public class UserController : ControllerBase
     {
         private readonly AutomatischesKochbuchContext _context;
@@ -36,10 +36,10 @@ namespace Automatisches_Kochbuch.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<IEnumerable<TabUser>>> GetAllAsync()
         {
-            // Querie verwenden, um alle User zu holen
+            // Query verwenden, um alle User zu holen
             IEnumerable<TabUser> users = await _context.GetAllAsync();
 
-            //von der Querie erhaltene User zurückgeben
+            //von der Query erhaltene User zurückgeben
             return Ok(users);
         }
 
@@ -49,7 +49,7 @@ namespace Automatisches_Kochbuch.Controllers
         /// <remarks>
         /// Geben Sie Ihre Zugangsdaten ein.
         /// </remarks>
-        //Als Bespiel diese Daten in Body bei Postman eingeben:
+        //Als Beispiel diese Daten in Body bei Postman eingeben:
                 	//"vorname": "Daniel",
                 	//"nachname": "Romen",
                 	//"passwort": "123",
@@ -63,17 +63,17 @@ namespace Automatisches_Kochbuch.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<TabUser>> AuthenticateUserAsync([FromBody] TabUser userParam)
         {
-            // Querie verwenden, um User zu authentifizieren
+            // Query verwenden, um User zu authentifizieren
             TabUser user = await _context.AuthenticateAsync(userParam.Username, userParam.Passwort);
 
-            //wenn die Querie keinen entsprechenden User zurückgibt, gibt es keinen mit dem entsprechden
+            //wenn die Query keinen entsprechenden User zurückgibt, gibt es keinen mit dem entsprechenden
             //Vornamen und PW
             if (user == null)
             {
                 return BadRequest("Vorname oder Passwort ist falsch.");
             }
 
-            //Von der Querie erhaltenen User zurückgeben
+            //Von der Query erhaltenen User zurückgeben
             return Ok(user);
 
         }
@@ -96,14 +96,14 @@ namespace Automatisches_Kochbuch.Controllers
             if (id != Convert.ToInt16(User.FindFirst(ClaimTypes.NameIdentifier).Value) &&
                 !User.IsInRole(Role.ADMIN)) // Admins können jeden User abrufen
             {
-                return Forbid();
+                return Forbid("Das ist Ihnen nicht erlaubt.");
             }
 
             TabUser user = await _context.GetUserAsync(id);
 
             if (user == null)
             {
-                return NotFound("User doesn't exist.");
+                return NotFound("Der User existiert nicht.");
             }
 
             return Ok(user);
@@ -124,14 +124,14 @@ namespace Automatisches_Kochbuch.Controllers
         {
             if (userParam == null)
             {
-                return BadRequest();
+                return BadRequest("Irgendetwas ist schief gelaufen! Geben Sie die Parameter erneut ein.");
             }
 
             TabUser user = await _context.RegisterUserAsync(userParam);
 
 
-            return CreatedAtAction("GetUserAsync", new { id = user.Id }, user); //Wenn registrierung erfolgreich
-            //wird der Gerade erstellte User angezeigt
+            return CreatedAtAction("GetUserAsync", new { id = user.Id }, user); //Wenn Registrierung erfolgreich
+            //wird der eben erstellte User angezeigt
         }
         /// <summary>
         /// Es wird ein User geändert
@@ -149,7 +149,7 @@ namespace Automatisches_Kochbuch.Controllers
         {
             if (userParam == null || id != userParam.Id)
             {
-                return BadRequest();
+                return BadRequest("Irgendetwas ist schief gelaufen! Geben Sie die Parameter erneut ein.");
             }
 
             //Claims in der erzeugten Identity können hier verwendet werden
@@ -157,14 +157,14 @@ namespace Automatisches_Kochbuch.Controllers
             if (id != Convert.ToInt16(User.FindFirst(ClaimTypes.NameIdentifier).Value) &&
             !User.IsInRole(Role.ADMIN)) // Admins können jeden User ändern
             {
-                return Forbid();
+                return Forbid("Das ist Ihnen nicht erlaubt!");
             }
 
             TabUser user = await _context.UpdateUserdataAsync(userParam);
 
             if (user == null)
             {
-                return NotFound("User doesn't exist.");
+                return NotFound("Der User existiert nicht!");
             }
 
             return Ok(user);
@@ -188,14 +188,14 @@ namespace Automatisches_Kochbuch.Controllers
             if (id != Convert.ToInt16(User.FindFirst(ClaimTypes.NameIdentifier).Value) &&
                 !User.IsInRole(Role.ADMIN)) // Admins können jeden User löschen
             {
-                return Forbid();
+                return Forbid("Das ist Ihnen nicht erlaubt!");
             }
 
             bool result = await _context.DeleteUserAsync(id);
 
             if (result)
             {
-                return NoContent();
+                return NoContent(); // Daten erfolgreich gelöscht
             }
 
             return NotFound("User doesn't exist.");
