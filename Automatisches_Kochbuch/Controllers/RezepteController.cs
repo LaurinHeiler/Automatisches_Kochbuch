@@ -61,7 +61,7 @@ namespace Automatisches_Kochbuch.Controllers
         /// <param name="id_rezept" und name2="AnzahlPersonen">
         /// Die ID des Rezeptes und die Anzahl Personen bzw. Portionen des Users.
         /// </param>
-        //GET api/values/5
+        //GET api/rezepte/5
         [HttpGet("{id_rezept}/{AnzahlPersonen}")]
         public ActionResult<string> GetMehrZumGericht(int id_rezept, int AnzahlPersonen)
         {
@@ -74,13 +74,34 @@ namespace Automatisches_Kochbuch.Controllers
             return Ok(MengeVonRezept);
         }
 
-        //[HttpGet]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Authorize(Roles = Role.ADMIN)] //nur authentifizierte Admins können alle User abrufen
-        //public ActionResult<IEnumerable<RezeptReadDto>> GetRezept(SortedSet<int> id)
-        //{
-        //    // Eine einzelne, spezifische Zutat ausgeben! //DR
-        //}
+        /// <summary>
+        /// Es wird nur ein Rezept angezeigt
+        /// </summary>
+        /// <param name="id">
+        /// Die ID des Rezepts
+        /// </param>
+        // GET: api/rezepte/5
+        [Authorize(Roles = Role.ADMIN)] //nur authentifizierte Admins können alle User abrufen
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetTabRezept([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var tabRezepte = await _context.TabRezepte.FindAsync(id);
+
+            if (tabRezepte == null)
+            {
+                return NotFound("Es wurden keine Zutaten gefunden!");
+            }
+
+            return Ok(_mapper.Map<RezeptReadDto>(tabRezepte));
+        }
     }
 }

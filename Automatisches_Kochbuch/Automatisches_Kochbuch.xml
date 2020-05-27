@@ -30,6 +30,15 @@
             Die ID's der Zutat, die der User zu Hause hat
             </param>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:Automatisches_Kochbuch.Controllers.RezepteController.GetMehrZumGericht(System.Int32,System.Int32)" -->
+        <member name="M:Automatisches_Kochbuch.Controllers.RezepteController.GetTabRezept(System.Int32)">
+            <summary>
+            Es wird nur ein Rezept angezeigt
+            </summary>
+            <param name="id">
+            Die ID des Rezepts
+            </param>
+        </member>
         <member name="M:Automatisches_Kochbuch.Controllers.UserController.GetAllAsync">
             <summary>
             Es werden alle User angezeigt
