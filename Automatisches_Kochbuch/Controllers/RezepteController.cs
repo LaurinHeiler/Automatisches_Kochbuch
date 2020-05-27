@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Automatisches_Kochbuch.Context;
+using Automatisches_Kochbuch.Dtos;
 using Automatisches_Kochbuch.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +17,12 @@ namespace Automatisches_Kochbuch.Controllers
     public class RezepteController : ControllerBase
     {
         private readonly IDataContext _context;
+        private readonly IMapper _mapper;
 
-        public RezepteController(IDataContext context)
+        public RezepteController(IDataContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
 
@@ -36,15 +40,15 @@ namespace Automatisches_Kochbuch.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<IEnumerable<TabRezepte>> GetRezepte(SortedSet<int> ZutatenVomUser)
+        public ActionResult<IEnumerable<RezeptReadDto>> GetRezepte(SortedSet<int> ZutatenVomUser)
         {
-            IEnumerable<TabRezepte> tabZutaten = _context.MoeglicheRezepte(ZutatenVomUser);
+            var tabZutaten = _context.MoeglicheRezepte(ZutatenVomUser);
             if ((tabZutaten != null) && (!tabZutaten.Any()))
             {
                 return NotFound("Es wurde leider kein Rezept für Sie gefunden! :-(");
             }
 
-            return Ok(tabZutaten);
+            return Ok(_mapper.Map<IEnumerable<RezeptReadDto>>(tabZutaten));
         }
 
 

@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "YPeNcVe8UiWJCcWChYx8HNyuAUwTRi99eZCm7xbvpXZ2hhRs/tuc6fCj0Unmybi001DASGr//ouCY1Nl1VmuSg==",
+  "dgSpecHash": "dUw1T21eKrMu/k5M2rlZ8RWreKjRXyuocfWvKCTaCioj9EDCzlZMuEk14362KzSydOvl1RlPrwB0bse3zRJsvQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Laurin\\Documents\\4.Klasse\\SOF_ANP\\Semesterprojekt_mit_WebServices\\Kochbuch_2019_RICHTIG\\Automatisches_Kochbuch\\Automatisches_Kochbuch.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Laurin\\.nuget\\packages\\automapper\\9.0.0\\automapper.9.0.0.nupkg.sha512",
+    "C:\\Users\\Laurin\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\7.0.0\\automapper.extensions.microsoft.dependencyinjection.7.0.0.nupkg.sha512",
     "C:\\Users\\Laurin\\.nuget\\packages\\castle.core\\4.2.1\\castle.core.4.2.1.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnet.webapi.client\\5.2.6\\microsoft.aspnet.webapi.client.5.2.6.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore\\2.1.1\\microsoft.aspnetcore.2.1.1.nupkg.sha512",

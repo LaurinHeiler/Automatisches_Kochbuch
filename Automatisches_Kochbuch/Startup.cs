@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using AutoMapper;
 using Automatisches_Kochbuch.Context;
 using Automatisches_Kochbuch.Helpers;
 using Automatisches_Kochbuch.Model;
@@ -34,6 +35,8 @@ namespace Automatisches_Kochbuch
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AutomatischesKochbuchAPI", Version = "v1" });
