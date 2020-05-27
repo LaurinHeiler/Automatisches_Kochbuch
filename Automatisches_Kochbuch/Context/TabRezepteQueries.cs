@@ -100,5 +100,44 @@ namespace Automatisches_Kochbuch.Context
 
             return MoeglicheRezepte.Select(x => { x.Bild = null; return x; }); //Bild auf null, weil es nur den Code anzeigt und nicht das Bild
         }
+
+        public static string MehrZumGericht(this IDataContext context, int id, int AnzahlPersonen)
+        {
+            var ZutatenVonRezeptID = context.LnkTabRezeptZutaten.Where(r => r.IdRezept == id).Select(r => r.IdZutaten);
+            var MengeVonRezeptZutaten = context.LnkTabRezeptZutaten.Where(r => r.IdRezept == id).Select(r => r.Menge);
+            //var EinheitenVonRezeptZutaten = context.LnkTabRezeptZutaten.Where(r => r.IdRezept == id).Select(r => r.E);
+
+
+            List<string> ZutatenVonRezept = new List<string>();
+
+            foreach (var item in ZutatenVonRezeptID)
+            {
+                var IDZuZutat = context.TabZutaten.Where(z => z.Id == item).Select(z => z.Zutat);
+
+                foreach (var item2 in IDZuZutat)
+                {
+                    ZutatenVonRezept.Add(item2);
+                }
+
+
+            }
+
+            List<decimal> MengeVonRezept = new List<decimal>();
+
+            foreach (var item in MengeVonRezeptZutaten)
+            {
+                MengeVonRezept.Add(item);
+            }
+
+            string ausgabe = null;
+            for (int i = 0; i < ZutatenVonRezept.Count(); i++)
+            {
+                ausgabe = ausgabe + (MengeVonRezept[i] * AnzahlPersonen) + " " + ZutatenVonRezept[i] + " | ";
+            }
+
+
+            return ausgabe;
+
+        }
     }
 }

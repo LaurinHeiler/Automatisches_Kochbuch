@@ -52,6 +52,28 @@ namespace Automatisches_Kochbuch.Controllers
             return Ok(_mapper.Map<IEnumerable<RezeptReadDto>>(tabZutaten));
         }
 
+        /// <summary>
+        /// Es werden jene die Zutaten und die dazugehörige Menge des ausgewählten Rezeptes angezeigt.
+        /// </summary>
+        /// <remarks>
+        /// Geben Sie die ID's des ausgewählten Rezept ein.
+        /// </remarks>
+        /// <param name="id_rezept" und name2="AnzahlPersonen">
+        /// Die ID des Rezeptes und die Anzahl Personen bzw. Portionen des Users.
+        /// </param>
+        //GET api/values/5
+        [HttpGet("{id_rezept}/{AnzahlPersonen}")]
+        public ActionResult<string> GetMehrZumGericht(int id_rezept, int AnzahlPersonen)
+        {
+            var MengeVonRezept = _context.MehrZumGericht(id_rezept, AnzahlPersonen);
+            if ((MengeVonRezept != null) && (!MengeVonRezept.Any()))
+            {
+                return NotFound("Es wurde leider kein Rezept für Sie gefunden!");
+            }
+
+            return Ok(MengeVonRezept);
+        }
+
         //[HttpGet]
         //[ProducesResponseType(StatusCodes.Status200OK)]
         //[ProducesResponseType(StatusCodes.Status404NotFound)]
