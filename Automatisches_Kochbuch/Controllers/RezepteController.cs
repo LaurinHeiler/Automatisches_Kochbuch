@@ -6,6 +6,7 @@ using AutoMapper;
 using Automatisches_Kochbuch.Context;
 using Automatisches_Kochbuch.Dtos;
 using Automatisches_Kochbuch.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -50,5 +51,14 @@ namespace Automatisches_Kochbuch.Controllers
 
             return Ok(_mapper.Map<IEnumerable<RezeptReadDto>>(tabZutaten));
         }
+
+        //[HttpGet]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[Authorize(Roles = Role.ADMIN)] //nur authentifizierte Admins können alle User abrufen
+        //public ActionResult<IEnumerable<RezeptReadDto>> GetRezept(SortedSet<int> id)
+        //{
+        //    // Eine einzelne, spezifische Zutat ausgeben! //DR
+        //}
     }
 }
