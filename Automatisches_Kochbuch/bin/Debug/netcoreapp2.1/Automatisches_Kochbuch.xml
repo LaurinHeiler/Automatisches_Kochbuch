@@ -133,6 +133,9 @@
             <param name="id">
             Die ID der ZutatenKatgorie
             </param>
+            <returns>
+            Gibt eine ZutenKategorie zurück.
+            </returns>
         </member>
         <member name="M:Automatisches_Kochbuch.Controllers.ZutatenKategorienController.PutTabZutatenKategorien(System.Int32,Automatisches_Kochbuch.Model.TabZutatenKategorien)">
             <summary>

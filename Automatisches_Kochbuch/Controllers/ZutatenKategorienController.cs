@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Automatisches_Kochbuch.Model;
 using Automatisches_Kochbuch.Context;
+using AutoMapper;
+using Automatisches_Kochbuch.Dtos;
 
 namespace Automatisches_Kochbuch.Controllers
 {
@@ -15,10 +17,12 @@ namespace Automatisches_Kochbuch.Controllers
     public class ZutatenKategorienController : ControllerBase
     {
         private readonly AutomatischesKochbuchContext _context;
+        private readonly IMapper _mapper;
 
-        public ZutatenKategorienController(AutomatischesKochbuchContext context)
+        public ZutatenKategorienController(AutomatischesKochbuchContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -32,8 +36,8 @@ namespace Automatisches_Kochbuch.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<TabZutatenKategorien>> GetTabZutatenKategorien()
         {
-            IEnumerable<TabZutatenKategorien> tabZutatenKategoriens = _context.TabZutatenKategorien;
-            return Ok(tabZutatenKategoriens);
+            IEnumerable<TabZutatenKategorien> tabZutatenKategorien = _context.TabZutatenKategorien;
+            return Ok(_mapper.Map<IEnumerable<ZutatenKategorienReadDto>>(tabZutatenKategorien));
         }
 
         /// <summary>
@@ -42,6 +46,9 @@ namespace Automatisches_Kochbuch.Controllers
         /// <param name="id">
         /// Die ID der ZutatenKatgorie
         /// </param>
+        /// <returns>
+        /// Gibt eine ZutenKategorie zurück.
+        /// </returns>
         // GET: api/ZutatenKategorien/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTabZutatenKategorien([FromRoute] int id)
@@ -58,7 +65,7 @@ namespace Automatisches_Kochbuch.Controllers
                 return NotFound();
             }
 
-            return Ok(tabZutatenKategorien);
+            return Ok(_mapper.Map<ZutatenKategorienReadDto>(tabZutatenKategorien));
         }
 
         /// <summary>

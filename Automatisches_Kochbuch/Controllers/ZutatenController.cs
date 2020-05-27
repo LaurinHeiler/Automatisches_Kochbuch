@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Automatisches_Kochbuch.Model;
 using Automatisches_Kochbuch.Context;
+using AutoMapper;
+using Automatisches_Kochbuch.Dtos;
 
 namespace Automatisches_Kochbuch.Controllers
 {
@@ -15,10 +17,12 @@ namespace Automatisches_Kochbuch.Controllers
     public class ZutatenController : ControllerBase
     {
         private readonly AutomatischesKochbuchContext _context;
+        private readonly IMapper _mapper;
 
-        public ZutatenController(AutomatischesKochbuchContext context)
+        public ZutatenController(AutomatischesKochbuchContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -32,7 +36,7 @@ namespace Automatisches_Kochbuch.Controllers
         public ActionResult<IEnumerable<TabZutaten>> GetZutaten()
         {
             IEnumerable<TabZutaten> tabZutaten = _context.TabZutaten;
-            return Ok(tabZutaten);
+            return Ok(_mapper.Map<IEnumerable<ZutatenReadDto>>(tabZutaten));
         }
 
         /// <summary>
@@ -57,7 +61,7 @@ namespace Automatisches_Kochbuch.Controllers
                 return NotFound();
             }
 
-            return Ok(tabZutaten);
+            return Ok(_mapper.Map<ZutatenReadDto>(tabZutaten));
         }
 
         /// <summary>
