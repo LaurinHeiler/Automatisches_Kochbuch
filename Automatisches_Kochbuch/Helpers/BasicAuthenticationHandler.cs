@@ -27,7 +27,7 @@ namespace Automatisches_Kochbuch.Helpers
             _context = userQuer;
         }
 
-        //jedes Mal, wenn einee Action-Methode nach Authenfikation verlang,
+        //jedes Mal, wenn eine Action-Methode nach Authentication verlangt,
         //wird diese Methode ausgeführt
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
@@ -78,7 +78,7 @@ namespace Automatisches_Kochbuch.Helpers
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Role, user.Role)
+                new Claim(ClaimTypes.Role, user.Role) // DR ToDo: Rolle in DB
             };
 
             //aus den Claims eine Identity und ein AuthenticationTicket

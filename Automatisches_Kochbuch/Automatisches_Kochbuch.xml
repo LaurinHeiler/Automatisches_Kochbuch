@@ -21,13 +21,13 @@
         </member>
         <member name="M:Automatisches_Kochbuch.Controllers.RezepteController.GetRezepte(System.Collections.Generic.SortedSet{System.Int32})">
             <summary>
-            Es werden mögliche Rezepte angezeigt, welche der User kochen kann.
+            Es werden jene Rezepte angezeigt, die der User kochen kann.
             </summary>
             <remarks>
             Geben Sie die ID's der Rezepte ein.
             </remarks>
             <param name="ZutatenVomUser">
-            Die ID's der Zutat, die der User zuhause hat
+            Die ID's der Zutat, die der User zu Hause hat
             </param>
         </member>
         <member name="M:Automatisches_Kochbuch.Controllers.UserController.GetAllAsync">
@@ -131,10 +131,10 @@
             Es wird nur eine ZutatenKategorien angezeigt
             </summary>
             <param name="id">
-            Die ID der ZutatenKatgorie
+            Die ID der ZutatenKategorie
             </param>
             <returns>
-            Gibt eine ZutenKategorie zurück.
+            Gibt eine ZutatenKategorie zurück.
             </returns>
         </member>
         <member name="M:Automatisches_Kochbuch.Controllers.ZutatenKategorienController.PutTabZutatenKategorien(System.Int32,Automatisches_Kochbuch.Model.TabZutatenKategorien)">
@@ -142,7 +142,7 @@
             Es wird eine ZutatenKategorie geändert
             </summary>
             <param name="id">
-            Die ID der ZutatenKatgorie
+            Die ID der ZutatenKategorie
             </param>
         </member>
         <member name="M:Automatisches_Kochbuch.Controllers.ZutatenKategorienController.PostTabZutatenKategorien(Automatisches_Kochbuch.Model.TabZutatenKategorien)">

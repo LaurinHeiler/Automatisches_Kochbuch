@@ -18,7 +18,7 @@ namespace Automatisches_Kochbuch.Context
             TabUser user = await Task.Run(() =>
             context.TabUser.SingleOrDefaultAsync(x => x.Username == username &&
                                                  x.Passwort == passwort));
-            //falls ein User gefunden wurde, Passwort schwärzen
+            //falls ein User gefunden wurde, Passwort schwärzen bzw. unkenntlich machen
             if (user != null)
             {
                 user.Passwort = null;
@@ -61,7 +61,7 @@ namespace Automatisches_Kochbuch.Context
             TabUser user = await context.TabUser.SingleOrDefaultAsync(x =>
             x.Id == id);
 
-            //falls ein User gefunden wurde, Passwort schwärzen
+            //falls ein User gefunden wurde, Passwort schwärzen bzw. unkenntlich machen
             if (user != null)
             {
                 user.Passwort = null;
@@ -134,7 +134,10 @@ namespace Automatisches_Kochbuch.Context
                 userDB.Id = userParam.Id;
                 userDB.Passwort = userParam.Passwort;
                 userDB.Username = userParam.Username;
-                //weitere Properties, wenn die DB endlich geändert ist (Vegi, Vegan, Gluten)
+                userDB.Vegetarier = userParam.Vegetarier;
+                userDB.Veganer = userParam.Veganer;
+                userDB.Glutenfrei = userParam.Glutenfrei;
+                //DR Todo
 
                 await context.SaveChangesAsynchron();
 

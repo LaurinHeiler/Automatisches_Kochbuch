@@ -14,7 +14,6 @@ namespace Automatisches_Kochbuch.Context
 
             //IEnumerable<int> richtige = zutatenVomUser.Intersect(ZutatenSet);
 
-            //Dummy Zutaten zum testen
             zutatenVomUser.Add(10);
             zutatenVomUser.Add(31);
             zutatenVomUser.Add(37);
@@ -67,45 +66,6 @@ namespace Automatisches_Kochbuch.Context
 
             }
 
-
-            #region AlterLangsamerCode
-            //RZ gibt die notwendige Menge an Zutaten pro Rezept an.
-            //int[] RZ = new int[context.TabRezepte.Count()];
-            //RU gibt die vorhandenen Zutaten des Users pro Rezept an.
-            //int[] RU = new int[context.TabRezepte.Count()];
-
-            //for (int n = 1; n <= context.TabRezepte.Count(); n++)
-            //{
-
-            //    for (int i = 1; i <= context.LnkTabRezeptZutaten.Count(); i++)
-            //    {
-
-            //        var RezeptID = context.LnkTabRezeptZutaten.Where(r => r.Id == i).Select(r => r.IdRezept);
-            //        int ID_Rezept = 0;
-            //        foreach (var item in RezeptID)
-            //        {
-            //            ID_Rezept = item;
-            //        }
-
-            //        var ZutatID = context.LnkTabRezeptZutaten.Where(r => r.Id == i).Select(r => r.IdZutaten);
-            //        int ID_Zutat = 0;
-            //        foreach (var item in ZutatID)
-            //        {
-            //            ID_Zutat = item;
-            //        }
-
-            //        if (ID_Rezept == n)
-            //        {
-            //            RZ[n - 1] += 1;
-
-            //            if (zutatenVomUser.Contains(ID_Zutat))
-            //            {
-            //                RU[n - 1] += 1;
-            //            }
-            //        }
-            //    }
-            //}
-            #endregion
 
             //Trefferquote (TQ) wird berechnet und die Rezepte mit 80% oder mehr werden dann ausgegeben.
             double[] TQ = new double[context.TabRezepte.Count()];
