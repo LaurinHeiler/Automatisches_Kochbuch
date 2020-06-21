@@ -1,4 +1,6 @@
 ﻿using Automatisches_Kochbuch.Model;
+using Castle.DynamicProxy.Generators;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +15,7 @@ namespace Automatisches_Kochbuch.Context
         {
 
             //IEnumerable<int> richtige = zutatenVomUser.Intersect(ZutatenSet);
-
+            //Dummy Daten, um die Eingabe eines Users zu Simulieren.
             zutatenVomUser.Add(10);
             zutatenVomUser.Add(31);
             zutatenVomUser.Add(37);
@@ -103,24 +105,34 @@ namespace Automatisches_Kochbuch.Context
 
         public static string MehrZumGericht(this IDataContext context, int id, int AnzahlPersonen)
         {
-            var ZutatenVonRezeptID = context.LnkTabRezeptZutaten.Where(r => r.IdRezept == id).Select(r => r.IdZutaten);
+            //var ZutatenVonRezeptID = context.LnkTabRezeptZutaten.Where(r => r.IdRezept == id).Select(r => r.IdZutaten);
+
+            List<string> ZutatenVonRezeptList = new List<string>();
+            var ZutatenVonRezept = context.LnkTabRezeptZutaten.Where(r => r.IdRezept == id).Select(r => r.IdZutatenNavigation.Zutat);
+
+            foreach (var item in ZutatenVonRezept)
+            {
+                ZutatenVonRezeptList.Add(item);
+            }
+            
+
             var MengeVonRezeptZutaten = context.LnkTabRezeptZutaten.Where(r => r.IdRezept == id).Select(r => r.Menge);
             //var EinheitenVonRezeptZutaten = context.LnkTabRezeptZutaten.Where(r => r.IdRezept == id).Select(r => r.E);
 
 
-            List<string> ZutatenVonRezept = new List<string>();
+            //List<string> ZutatenVonRezept = new List<string>();
 
-            foreach (var item in ZutatenVonRezeptID)
-            {
-                var IDZuZutat = context.TabZutaten.Where(z => z.Id == item).Select(z => z.Zutat);
+            //foreach (var item in ZutatenVonRezeptID)
+            //{
+            //    var IDZuZutat = context.TabZutaten.Where(z => z.Id == item).Select(z => z.Zutat);
 
-                foreach (var item2 in IDZuZutat)
-                {
-                    ZutatenVonRezept.Add(item2);
-                }
+            //    foreach (var item2 in IDZuZutat)
+            //    {
+            //        ZutatenVonRezept.Add(item2);
+            //    }
 
 
-            }
+            //}
 
             List<decimal> MengeVonRezept = new List<decimal>();
 
@@ -132,7 +144,7 @@ namespace Automatisches_Kochbuch.Context
             string ausgabe = null;
             for (int i = 0; i < ZutatenVonRezept.Count(); i++)
             {
-                ausgabe = ausgabe + (MengeVonRezept[i] * AnzahlPersonen) + " " + ZutatenVonRezept[i] + " | ";
+                ausgabe = ausgabe + (MengeVonRezept[i] * AnzahlPersonen) + " " + ZutatenVonRezeptList[i] + " | ";
             }
 
 

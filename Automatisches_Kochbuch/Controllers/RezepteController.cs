@@ -58,7 +58,7 @@ namespace Automatisches_Kochbuch.Controllers
         /// <remarks>
         /// Geben Sie die ID's des ausgewählten Rezept ein.
         /// </remarks>
-        /// <param name="id_rezept" und name2="AnzahlPersonen">
+        /// <param name="id_rezept" name2="AnzahlPersonen">
         /// Die ID des Rezeptes und die Anzahl Personen bzw. Portionen des Users.
         /// </param>
         //GET api/rezepte/5

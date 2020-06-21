@@ -30,7 +30,17 @@
             Die ID's der Zutat, die der User zu Hause hat
             </param>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Automatisches_Kochbuch.Controllers.RezepteController.GetMehrZumGericht(System.Int32,System.Int32)" -->
+        <member name="M:Automatisches_Kochbuch.Controllers.RezepteController.GetMehrZumGericht(System.Int32,System.Int32)">
+            <summary>
+            Es werden jene die Zutaten und die dazugehörige Menge des ausgewählten Rezeptes angezeigt.
+            </summary>
+            <remarks>
+            Geben Sie die ID's des ausgewählten Rezept ein.
+            </remarks>
+            <param name="id_rezept" name2="AnzahlPersonen">
+            Die ID des Rezeptes und die Anzahl Personen bzw. Portionen des Users.
+            </param>
+        </member>
         <member name="M:Automatisches_Kochbuch.Controllers.RezepteController.GetTabRezept(System.Int32)">
             <summary>
             Es wird nur ein Rezept angezeigt
