@@ -74,21 +74,18 @@ namespace Automatisches_Kochbuch.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTabZutaten([FromRoute] int id, [FromBody] TabZutaten tabZutaten)
         {
-            if (!ModelState.IsValid)
+            if (tabZutaten == null || id != tabZutaten.Id)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Irgendetwas ist schief gelaufen! Geben Sie die Parameter erneut ein.");
             }
 
-            if (id != tabZutaten.Id)
-            {
-                return BadRequest("Es konnten keine Zutaten gefunden werden!");
-            }
+            //TabZutaten Zutat = await _context.UpdateUserdataAsync(userParam);
 
-            _context.Entry(tabZutaten).State = EntityState.Modified;
+            //_context.Entry(tabZutaten).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsynchron();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -121,7 +118,7 @@ namespace Automatisches_Kochbuch.Controllers
             }
 
             _context.TabZutaten.Add(tabZutaten);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsynchron();
 
             return CreatedAtAction("GetTabZutaten", new { id = tabZutaten.Id }, tabZutaten);
         }
@@ -148,7 +145,7 @@ namespace Automatisches_Kochbuch.Controllers
             }
 
             _context.TabZutaten.Remove(tabZutaten);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsynchron();
 
             return Ok(tabZutaten);
         }

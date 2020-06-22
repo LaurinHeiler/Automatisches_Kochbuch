@@ -162,6 +162,8 @@ namespace Automatisches_Kochbuch.Controllers
 
             TabUser user = await _context.UpdateUserdataAsync(userParam);
 
+            await _context.SaveChangesAsynchron();
+
             if (user == null)
             {
                 return NotFound("Der User existiert nicht!");
