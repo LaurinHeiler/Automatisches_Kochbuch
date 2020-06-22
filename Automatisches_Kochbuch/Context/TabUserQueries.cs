@@ -15,9 +15,9 @@ namespace Automatisches_Kochbuch.Context
         public static async Task<TabUser> AuthenticateAsync(this IDataContext context, string username, string passwort)
         {
             //entsprechenden User aus der DB holen
-            TabUser user = await Task.Run(() =>
+            TabUser user = await
             context.TabUser.SingleOrDefaultAsync(x => x.Username == username &&
-                                                 x.Passwort == passwort));
+                                                 x.Passwort == passwort);
             //falls ein User gefunden wurde, Passwort schwärzen bzw. unkenntlich machen
             if (user != null)
             {
@@ -28,7 +28,7 @@ namespace Automatisches_Kochbuch.Context
 
         }
 
-        public async static Task<IEnumerable<TabUser>> GetAllAsync(this IDataContext context)
+        public async static Task<IEnumerable<TabUser>> GetAllUsersAsync(this IDataContext context)
         {
             List<TabUser> users = await context.TabUser.ToListAsync();
 

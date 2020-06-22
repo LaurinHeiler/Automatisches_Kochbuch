@@ -17,9 +17,9 @@ namespace Automatisches_Kochbuch.Controllers
     [Authorize] //Bei allen Action-Methoden wird die Authentication des Benutzers verlangt, außer bei [AllowAnonymous].
     public class UserController : ControllerBase
     {
-        private readonly AutomatischesKochbuchContext _context;
+        private readonly IDataContext _context;
 
-        public UserController(AutomatischesKochbuchContext context)
+        public UserController(IDataContext context)
         {
             _context = context;
         }
@@ -34,10 +34,10 @@ namespace Automatisches_Kochbuch.Controllers
         [Authorize(Roles = Role.ADMIN)] //nur authentifizierte Admins können alle User abrufen
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<IEnumerable<TabUser>>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<TabUser>>> GetAllUsersAsync()
         {
             // Query verwenden, um alle User zu holen
-            IEnumerable<TabUser> users = await _context.GetAllAsync();
+            IEnumerable<TabUser> users = await _context.GetAllUsersAsync();
 
             //von der Query erhaltene User zurückgeben
             return Ok(users);
@@ -56,8 +56,8 @@ namespace Automatisches_Kochbuch.Controllers
                 	//"Role": "admin",
                 	//"Username": "DaRo"
 
-    // POST: api/User/authenticate
-    [AllowAnonymous] //geht immer, ohne Authentication
+        // POST: api/User/authenticate
+        [AllowAnonymous] //geht immer, ohne Authentication
         [HttpPost("authenticate")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -116,7 +116,7 @@ namespace Automatisches_Kochbuch.Controllers
         /// </remarks>
         //POST: api/user/register
         [AllowAnonymous] //Damit jeder User seinen eigenen Account selber erstellen kann.
-        [HttpPost("register")]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]

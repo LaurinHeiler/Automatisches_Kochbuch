@@ -16,10 +16,10 @@ namespace Automatisches_Kochbuch.Controllers
     [ApiController]
     public class ZutatenController : ControllerBase
     {
-        private readonly AutomatischesKochbuchContext _context;
+        private readonly IDataContext _context;
         private readonly IMapper _mapper;
 
-        public ZutatenController(AutomatischesKochbuchContext context, IMapper mapper)
+        public ZutatenController(IDataContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

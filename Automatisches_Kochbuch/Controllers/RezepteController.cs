@@ -58,19 +58,16 @@ namespace Automatisches_Kochbuch.Controllers
         /// <remarks>
         /// Geben Sie die ID's des ausgewählten Rezept ein.
         /// </remarks>
-        /// <param name="id_rezept" name2="AnzahlPersonen">
-        /// Die ID des Rezeptes und die Anzahl Personen bzw. Portionen des Users.
-        /// </param>
+        /// <param name="id_rezept">ID des Rezepts</param>
+        /// <param name="AnzahlPersonen">Anzahl Personen bzw. Portionen des Users</param>
         //GET api/rezepte/5
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [HttpGet("{id_rezept}/{AnzahlPersonen}")]
+        [HttpGet("{id_rezept}")]
         public ActionResult<string> GetMehrZumGericht(int id_rezept, int AnzahlPersonen)
         {
             var MengeVonRezept = _context.MehrZumGericht(id_rezept, AnzahlPersonen);
-            if ((MengeVonRezept != null) && (!MengeVonRezept.Any()))
+            if (MengeVonRezept == null)
             {
                 return NotFound("Es wurde leider kein Rezept für Sie gefunden!");
             }
