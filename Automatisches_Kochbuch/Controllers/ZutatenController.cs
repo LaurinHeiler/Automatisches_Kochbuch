@@ -33,10 +33,13 @@ namespace Automatisches_Kochbuch.Controllers
         /// </returns>
         // GET: api/Zutaten
         [HttpGet]
-        public ActionResult<IEnumerable<TabZutaten>> GetZutaten()
+        public async Task<ActionResult<IEnumerable<TabZutaten>>> GetZutaten()
         {
-            IEnumerable<TabZutaten> tabZutaten = _context.TabZutaten;
-            return Ok(_mapper.Map<IEnumerable<ZutatenReadDto>>(tabZutaten));
+            // Query verwenden, um alle User zu holen
+            IEnumerable<TabZutaten> users = await _context.GetAllZutatenAsync();
+
+            //von der Query erhaltene User zurückgeben
+            return Ok(users);
         }
 
         /// <summary>
