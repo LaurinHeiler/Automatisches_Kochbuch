@@ -34,9 +34,9 @@ namespace Automatisches_Kochbuch.Controllers
 
         // GET: api/ZutatenKategorien
         [HttpGet]
-        public ActionResult<IEnumerable<TabZutatenKategorien>> GetTabZutatenKategorien()
+        public async Task<ActionResult<IEnumerable<TabZutatenKategorien>>> GetTabZutatenKategorien()
         {
-            IEnumerable<TabZutatenKategorien> tabZutatenKategorien = _context.TabZutatenKategorien;
+            IEnumerable<TabZutatenKategorien> tabZutatenKategorien = await _context.TabZutatenKategorien.ToListAsync();
             return Ok(_mapper.Map<IEnumerable<ZutatenKategorienReadDto>>(tabZutatenKategorien));
         }
 
@@ -76,37 +76,30 @@ namespace Automatisches_Kochbuch.Controllers
         /// </param>
         // PUT: api/ZutatenKategorien/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTabZutatenKategorien([FromRoute] int id, [FromBody] TabZutatenKategorien tabZutatenKategorien)
+        public async Task<IActionResult> PutTabZutatenKategorien([FromRoute] int id, [FromBody] TabZutatenKategorien Kategorie)
         {
-            if (!ModelState.IsValid)
+            //überprüfen ob Daten und ID eingegeben worden sind.
+            if (Kategorie == null || id != Kategorie.Id)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Irgendetwas ist schief gelaufen! Geben Sie die Parameter erneut ein.");
             }
 
-            if (id != tabZutatenKategorien.Id)
+            //entsprechende Kategorie aus der DB holen
+            TabZutatenKategorien kategorieDB = await _context.TabZutatenKategorien.SingleOrDefaultAsync(u =>
+            u.Id == Kategorie.Id);
+
+            //falls eine Zutat gefunden wurde, dessen Daten aktualisieren
+            if (kategorieDB != null)
             {
-                return BadRequest("Es konnte keine Kategorie für die Zutat gefunden werden!");
+                kategorieDB.Kategorie = Kategorie.Kategorie;
+                kategorieDB.Id = Kategorie.Id;
+
+                await _context.SaveChangesAsynchron();
+
+                return Ok(kategorieDB);
             }
 
-            _context.Entry(tabZutatenKategorien).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TabZutatenKategorienExists(id))
-                {
-                    return NotFound("Es konnte keine Kategorie für die Zutat gefunden werden!");
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return NotFound("Die Kategorie existiert nicht!");
         }
 
         /// <summary>
@@ -157,9 +150,5 @@ namespace Automatisches_Kochbuch.Controllers
             return Ok(tabZutatenKategorien);
         }
 
-        private bool TabZutatenKategorienExists(int id)
-        {
-            return _context.TabZutatenKategorien.Any(e => e.Id == id);
-        }
     }
 }

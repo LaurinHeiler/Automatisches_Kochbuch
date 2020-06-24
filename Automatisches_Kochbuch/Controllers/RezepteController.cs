@@ -63,7 +63,7 @@ namespace Automatisches_Kochbuch.Controllers
         //GET api/rezepte/5
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpGet("{id_rezept}")]
+        [HttpGet("{id_rezept}/zutaten")]
         public ActionResult<string> GetMehrZumGericht(int id_rezept, int AnzahlPersonen)
         {
             var MengeVonRezept = _context.MehrZumGericht(id_rezept, AnzahlPersonen);

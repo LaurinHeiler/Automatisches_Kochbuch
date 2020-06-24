@@ -108,6 +108,7 @@ namespace Automatisches_Kochbuch.Context
             //var ZutatenVonRezeptID = context.LnkTabRezeptZutaten.Where(r => r.IdRezept == id).Select(r => r.IdZutaten);
 
             List<string> ZutatenVonRezeptList = new List<string>();
+            //anonymer Datentyp mit Menge und Zutat
             var ZutatenVonRezept = context.LnkTabRezeptZutaten.Where(r => r.IdRezept == id).Select(r => r.IdZutatenNavigation.Zutat);
 
             foreach (var item in ZutatenVonRezept)

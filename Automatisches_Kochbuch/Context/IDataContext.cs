@@ -20,5 +20,9 @@ namespace Automatisches_Kochbuch.Context
 
         void Save();
         Task SaveChangesAsynchron();
+
+        //int SaveChanges();
+
+        //Task<int> SaveChangesAsync();
     }
 }

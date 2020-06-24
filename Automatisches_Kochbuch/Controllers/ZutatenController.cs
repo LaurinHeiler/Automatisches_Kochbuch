@@ -9,6 +9,7 @@ using Automatisches_Kochbuch.Model;
 using Automatisches_Kochbuch.Context;
 using AutoMapper;
 using Automatisches_Kochbuch.Dtos;
+using Microsoft.AspNetCore.Rewrite.Internal;
 
 namespace Automatisches_Kochbuch.Controllers
 {
@@ -35,11 +36,8 @@ namespace Automatisches_Kochbuch.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TabZutaten>>> GetZutaten()
         {
-            // Query verwenden, um alle User zu holen
-            IEnumerable<TabZutaten> users = await _context.GetAllZutatenAsync();
-
-            //von der Query erhaltene User zurückgeben
-            return Ok(users);
+            IEnumerable<TabZutaten> tabZutaten = await _context.TabZutaten.ToListAsync();
+            return Ok(_mapper.Map<IEnumerable<ZutatenReadDto>>(tabZutaten));
         }
 
         /// <summary>
@@ -77,32 +75,32 @@ namespace Automatisches_Kochbuch.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTabZutaten([FromRoute] int id, [FromBody] TabZutaten tabZutaten)
         {
+            //überprüfen ob Daten und ID eingegeben worden sind.
             if (tabZutaten == null || id != tabZutaten.Id)
             {
                 return BadRequest("Irgendetwas ist schief gelaufen! Geben Sie die Parameter erneut ein.");
             }
 
-            //TabZutaten Zutat = await _context.UpdateUserdataAsync(userParam);
+            //entsprechende Zutat aus der DB holen
+            TabZutaten zutatDB = await _context.TabZutaten.SingleOrDefaultAsync(u =>
+            u.Id == tabZutaten.Id);
 
-            //_context.Entry(tabZutaten).State = EntityState.Modified;
-
-            try
+            //falls eine Zutat gefunden wurde, dessen Daten aktualisieren
+            if (zutatDB != null)
             {
+                zutatDB.IdZutatEinheit = tabZutaten.IdZutatEinheit;
+                zutatDB.IdZutatKategorie = tabZutaten.IdZutatKategorie;
+                zutatDB.Id = tabZutaten.Id;
+                zutatDB.Vegan = tabZutaten.Vegan;
+                zutatDB.Vegetarisch = tabZutaten.Vegetarisch;
+                zutatDB.Glutenfrei = tabZutaten.Glutenfrei;
+
                 await _context.SaveChangesAsynchron();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TabZutatenExists(id))
-                {
-                    return NotFound("Es wurden keine Zutaten gefunden, versuchen Sie es nocheinmal!");
-                }
-                else
-                {
-                    throw;
-                }
+
+                return Ok(zutatDB);
             }
 
-            return NoContent();
+            return NotFound("Die Zutat existiert nicht!");
         }
 
         /// <summary>
@@ -153,9 +151,5 @@ namespace Automatisches_Kochbuch.Controllers
             return Ok(tabZutaten);
         }
 
-        private bool TabZutatenExists(int id)
-        {
-            return _context.TabZutaten.Any(e => e.Id == id);
-        }
     }
 }

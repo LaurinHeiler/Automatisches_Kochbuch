@@ -128,7 +128,7 @@ namespace Automatisches_Kochbuch.Controllers
             }
 
             TabUser user = await _context.RegisterUserAsync(userParam);
-
+            await _context.SaveChangesAsynchron();
 
             return CreatedAtAction("GetUserAsync", new { id = user.Id }, user); //Wenn Registrierung erfolgreich
             //wird der eben erstellte User angezeigt
@@ -194,6 +194,7 @@ namespace Automatisches_Kochbuch.Controllers
             }
 
             bool result = await _context.DeleteUserAsync(id);
+            await _context.SaveChangesAsynchron();
 
             if (result)
             {

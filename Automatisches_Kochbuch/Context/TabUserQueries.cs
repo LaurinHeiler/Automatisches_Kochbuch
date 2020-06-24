@@ -46,7 +46,7 @@ namespace Automatisches_Kochbuch.Context
             if (userDB != null)
             {
                 context.TabUser.Remove(userDB);
-                await context.SaveChangesAsynchron();
+                //await context.SaveChangesAsynchron();
 
                 return true;
             }
@@ -85,7 +85,7 @@ namespace Automatisches_Kochbuch.Context
             }
 
             await context.TabUser.AddAsync(userParam);
-            await context.SaveChangesAsynchron();
+            //await context.SaveChangesAsynchron();
 
             return userParam;
 
