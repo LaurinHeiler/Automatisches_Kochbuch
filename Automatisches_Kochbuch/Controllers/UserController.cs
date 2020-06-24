@@ -60,7 +60,7 @@ namespace Automatisches_Kochbuch.Controllers
         [AllowAnonymous] //geht immer, ohne Authentication
         [HttpPost("authenticate")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<TabUser>> AuthenticateUserAsync([FromBody] TabUser userParam)
         {
             // Query verwenden, um User zu authentifizieren

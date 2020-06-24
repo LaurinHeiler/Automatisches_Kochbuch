@@ -34,6 +34,7 @@ namespace Automatisches_Kochbuch.Controllers
         /// </returns>
         // GET: api/Zutaten
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<TabZutaten>>> GetZutaten()
         {
             IEnumerable<TabZutaten> tabZutaten = await _context.TabZutaten.ToListAsync();
@@ -48,6 +49,9 @@ namespace Automatisches_Kochbuch.Controllers
         /// </param>
         // GET: api/Zutaten/5
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetTabZutaten([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -73,6 +77,9 @@ namespace Automatisches_Kochbuch.Controllers
         /// </param>
         // PUT: api/Zutaten/5
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> PutTabZutaten([FromRoute] int id, [FromBody] TabZutaten tabZutaten)
         {
             //überprüfen ob Daten und ID eingegeben worden sind.
@@ -111,6 +118,9 @@ namespace Automatisches_Kochbuch.Controllers
         /// </remarks>
         // POST: api/Zutaten
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> PostTabZutaten([FromBody] TabZutaten tabZutaten)
         {
             if (!ModelState.IsValid)
@@ -132,6 +142,9 @@ namespace Automatisches_Kochbuch.Controllers
         /// </param>
         // DELETE: api/Zutaten/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> DeleteTabZutaten([FromRoute] int id)
         {
             if (!ModelState.IsValid)

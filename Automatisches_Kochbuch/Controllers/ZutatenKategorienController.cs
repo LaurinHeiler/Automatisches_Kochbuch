@@ -34,6 +34,7 @@ namespace Automatisches_Kochbuch.Controllers
 
         // GET: api/ZutatenKategorien
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<TabZutatenKategorien>>> GetTabZutatenKategorien()
         {
             IEnumerable<TabZutatenKategorien> tabZutatenKategorien = await _context.TabZutatenKategorien.ToListAsync();
@@ -51,6 +52,9 @@ namespace Automatisches_Kochbuch.Controllers
         /// </returns>
         // GET: api/ZutatenKategorien/5
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetTabZutatenKategorien([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -76,6 +80,9 @@ namespace Automatisches_Kochbuch.Controllers
         /// </param>
         // PUT: api/ZutatenKategorien/5
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> PutTabZutatenKategorien([FromRoute] int id, [FromBody] TabZutatenKategorien Kategorie)
         {
             //überprüfen ob Daten und ID eingegeben worden sind.
@@ -110,6 +117,9 @@ namespace Automatisches_Kochbuch.Controllers
         /// </remarks>
         // POST: api/ZutatenKategorien
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> PostTabZutatenKategorien([FromBody] TabZutatenKategorien tabZutatenKategorien)
         {
             if (!ModelState.IsValid)
@@ -131,6 +141,9 @@ namespace Automatisches_Kochbuch.Controllers
         /// </param>
         // DELETE: api/ZutatenKategorien/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> DeleteTabZutatenKategorien([FromRoute] int id)
         {
             if (!ModelState.IsValid)
