@@ -37,7 +37,6 @@ namespace Automatisches_Kochbuch.Model
         [DisplayName("Rolle")]
         public string Role { get; set; }
 
-        [Required]
         [DisplayName("AnzahlPortionen")]
         public int AnzahlPortionen { get; set; }
 

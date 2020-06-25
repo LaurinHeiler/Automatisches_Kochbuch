@@ -35,6 +35,7 @@ namespace Automatisches_Kochbuch.Model
         [DisplayName("Zubereitung")]
         public string Zubereitung { get; set; }
 
+        [Required]
         [DisplayName("Bild")]
         public byte[] Bild { get; set; }
 
