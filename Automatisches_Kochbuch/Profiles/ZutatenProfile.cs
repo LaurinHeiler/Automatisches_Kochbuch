@@ -13,7 +13,7 @@ namespace Automatisches_Kochbuch.Profiles
         public ZutatenProfile()
         {
             CreateMap<TabZutaten, ZutatenReadDto>();
-            CreateMap<ZutatenCreatDto, TabZutaten>();
+            CreateMap<ZutatenCreateDto, TabZutaten>();
             CreateMap<ZutatenUpdateDto, TabZutaten>();
         }
     }

@@ -27,15 +27,13 @@ namespace Automatisches_Kochbuch.Helpers
             _context = userQuer;
         }
 
-        //jedes Mal, wenn eine Action-Methode nach Authentication verlangt,
-        //wird diese Methode ausgeführt
+        //Jedes Mal, wenn eine Action-Methode nach Authentication verlangt,
+        //wird diese Methode ausgeführt.
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-            // überprüfen, ob der Authorization-Header vorhanden ist
+            // Überprüfen, ob der Authorization-Header vorhanden ist.
             if (!Request.Headers.ContainsKey("Authorization"))
-            {
                 return AuthenticateResult.Fail("Missing Authorization Header");
-            }
 
             TabUser user;
 
@@ -46,7 +44,7 @@ namespace Automatisches_Kochbuch.Helpers
                     AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
 
                 //Parameter im Authorization-Header (liefert die Credentials)
-                //dekodieren, in einen string umwandeln und diesen beim : teilen
+                //dekodieren, in einen string umwandeln und diesen beim ":" teilen.
                 // -> Credentials haben die Form "username:password"
                 byte[] credentialBytes = Convert.FromBase64String(authHeader.Parameter);
                 string[] credentials = Encoding.UTF8.GetString(credentialBytes).Split(new[] { ':' }, 2);
@@ -54,40 +52,40 @@ namespace Automatisches_Kochbuch.Helpers
                 string username = credentials[0];
                 string password = credentials[1];
 
-                //Querie verwenden, um User zu authentifizieren
+                //Query verwenden, um User zu authentifizieren.
                 user = await _context.AuthenticateAsync(username, password);
 
             }
-            //sollte irgendetwas mit dem Authentication-Header nicht klappen
+            //Sollte etwas mit dem Authentication-Header nicht klappen.
             catch
             {
                 return AuthenticateResult.Fail("Invalid Authorization Header");
             }
 
-            //wenn die Querie keinen entsprechenden User zurückgibt,
-            //gibt es keinen mit dem entsprechenden Benutzernamen und PW
+            //Wenn die Query keinen entsprechenden User zurückgibt,
+            //gibt es keinen mit dem entsprechenden Benutzernamen und PW.
             if (user == null)
             {
                 return AuthenticateResult.Fail("Invalid Username or Password");
             }
 
-            //Claims ereugen und in einem Array sammeln
-            //Claims ... Information über den authentifizierten Benutzer,
+            //Claims erzeugen und in einem Array sammeln.
+            //Claims ... Informationen über den authentifizierten Benutzer,
             //           die in der Action-Methode dann verwendet werden können.
             Claim[] claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Role, user.Role) // DR ToDo: Rolle in DB
+                new Claim(ClaimTypes.Role, user.Role)
             };
 
-            //aus den Claims eine Identity und ein AuthenticationTicket
-            //für die Rückgabe erzeugen
+            //Aus den Claims eine Identity und ein AuthenticationTicket
+            //für die Rückgabe erzeugen.
             ClaimsIdentity identity = new ClaimsIdentity(claims, Scheme.Name);
             ClaimsPrincipal principal = new ClaimsPrincipal(identity);
             AuthenticationTicket ticket = new AuthenticationTicket(principal, Scheme.Name);
 
-            //Authentifizierung erfolgreich -> erzeugtes Ticket zurückgeben
+            //Authentifizierung erfolgreich -> erzeugtes Ticket zurückgeben.
             return AuthenticateResult.Success(ticket);
         }
     }
