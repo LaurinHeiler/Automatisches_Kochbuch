@@ -28,7 +28,7 @@ namespace Automatisches_Kochbuch.Controllers
             _mapper = mapper;
         }
         /// <summary>
-        /// Es werden alle User angezeigt
+        /// Es werden alle User angezeigt.
         /// </summary>
         /// <returns>
         /// Alle User
@@ -48,7 +48,7 @@ namespace Automatisches_Kochbuch.Controllers
         }
 
         /// <summary>
-        /// Der User wird authentifiziert
+        /// Der User wird authentifiziert.
         /// </summary>
         /// <remarks>
         /// Geben Sie Ihre Zugangsdaten ein.
@@ -70,34 +70,31 @@ namespace Automatisches_Kochbuch.Controllers
             // Query verwenden, um User zu authentifizieren
             //TabUser user = await _context.AuthenticateAsync(userParam.Username, userParam.Passwort);
 
-            //entsprechenden User aus der DB holen
+            //entsprechenden User aus der DB holen.
             TabUser userDB = await
             _context.TabUser.SingleOrDefaultAsync(x => x.Username == userParam.Username &&
                                                  x.Passwort == userParam.Passwort);
 
             var User = _mapper.Map<TabUser>(userParam);
 
-            //falls ein User gefunden wurde, Passwort schwärzen bzw. unkenntlich machen
+            //falls ein User gefunden wurde, Passwort schwärzen bzw. unkenntlich machen.
             if (User != null)
-            {
                 User.Passwort = null;
-            }
-
 
 
             //wenn die Query keinen entsprechenden User zurückgibt, gibt es keinen mit dem entsprechenden
-            //Username und PW
+            //Username und PW.
             if (User == null)
             {
                 return BadRequest("Username oder Passwort ist falsch.");
             }
 
-            //Von der Query erhaltenen User zurückgeben
+            //Von der Query erhaltenen User zurückgeben.
             return Ok(User);
 
         }
         /// <summary>
-        /// Es wird nur ein User angezeigt
+        /// Es wird nur ein User angezeigt.
         /// </summary>
         /// <param name="id">
         /// Die ID des User
@@ -163,7 +160,6 @@ namespace Automatisches_Kochbuch.Controllers
                 var User = _mapper.Map<TabUser>(userParam);
 
                 await _context.TabUser.AddAsync(User);
-
                 await _context.SaveChangesAsynchron();
 
                 return CreatedAtAction("GetUserAsync", new { id = userParam.Id }, userParam); //Wenn Registrierung erfolgreich
@@ -176,7 +172,7 @@ namespace Automatisches_Kochbuch.Controllers
 
         }
         /// <summary>
-        /// Es wird ein User geändert
+        /// Es wird ein User geändert.
         /// </summary>
         /// <param name="id">
         /// Die ID des User
@@ -206,17 +202,17 @@ namespace Automatisches_Kochbuch.Controllers
 
 
 
-            //entsprechenden User aus der DB holen
+            //entsprechenden User aus der DB holen.
             TabUser userDB = await _context.TabUser.SingleOrDefaultAsync(u =>
             u.Id == userParam.Id);
 
-            //falls ein User gefunden wurde, dessen Daten aktualisieren
+            //falls ein User gefunden wurde, dessen Daten aktualisieren.
             if (userDB != null)
             {
-                //prüfen, ob der Username geändert wrude
+                //prüfen, ob der Username geändert wurde.
                 if (userDB.Username != userParam.Username)
                 {
-                    //prüfen, ob der neue Username noch frei ist
+                    //prüfen, ob der neue Username noch frei ist.
                     bool usernameVorhanden = await _context.TabUser.AnyAsync(x =>
                         x.Username == userParam.Username);
 
@@ -224,7 +220,7 @@ namespace Automatisches_Kochbuch.Controllers
                     {
                         return null;
                     }
-                    //neuen Usernamen Übernehmen
+                    //neuen Usernamen übernehmen
                     userDB.Username = userParam.Username;
                 }
 

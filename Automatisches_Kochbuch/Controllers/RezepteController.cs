@@ -33,10 +33,10 @@ namespace Automatisches_Kochbuch.Controllers
         /// Es werden jene Rezepte angezeigt, die der User kochen kann.
         /// </summary>
         /// <remarks>
-        /// Geben Sie die ID's der Rezepte ein.
+        /// Geben Sie die IDs der Rezepte ein.
         /// </remarks>
         /// <param name="ZutatenVomUser">
-        /// Die ID's der Zutat, die der User zu Hause hat
+        /// Die IDs der Zutat, die der User zu Hause hat
         /// </param>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -53,10 +53,10 @@ namespace Automatisches_Kochbuch.Controllers
         }
 
         /// <summary>
-        /// Es werden jene die Zutaten und die dazugehörige Menge des ausgewählten Rezeptes angezeigt.
+        /// Es werden die Zutaten und die dazugehörigen Mengen des ausgewählten Rezeptes angezeigt.
         /// </summary>
         /// <remarks>
-        /// Geben Sie die ID's des ausgewählten Rezept ein.
+        /// Geben Sie die IDs des ausgewählten Rezept ein.
         /// </remarks>
         /// <param name="id_rezept">ID des Rezepts</param>
         /// <param name="AnzahlPersonen">Anzahl Personen bzw. Portionen des Users</param>
@@ -76,7 +76,7 @@ namespace Automatisches_Kochbuch.Controllers
         }
 
         /// <summary>
-        /// Es wird nur ein Rezept angezeigt
+        /// Es wird nur ein Rezept angezeigt.
         /// </summary>
         /// <param name="id">
         /// Die ID des Rezepts
