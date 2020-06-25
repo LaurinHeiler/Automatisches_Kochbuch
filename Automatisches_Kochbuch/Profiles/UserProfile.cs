@@ -8,13 +8,11 @@ using System.Threading.Tasks;
 
 namespace Automatisches_Kochbuch.Profiles
 {
-    public class ZutatenProfile : Profile
+    public class UserProfile : Profile
     {
-        public ZutatenProfile()
+        public UserProfile()
         {
-            CreateMap<TabZutaten, ZutatenReadDto>();
-            CreateMap<ZutatenCreatDto, TabZutaten>();
-            CreateMap<ZutatenUpdateDto, TabZutaten>();
+            CreateMap<TabUser, UserReadDto>();
         }
     }
 }

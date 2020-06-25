@@ -104,7 +104,7 @@
             Alle Zutaten
             </returns>
         </member>
-        <member name="M:Automatisches_Kochbuch.Controllers.ZutatenController.GetTabZutaten(System.Int32)">
+        <member name="M:Automatisches_Kochbuch.Controllers.ZutatenController.GetZutat(System.Int32)">
             <summary>
             Es wird nur eine Zutat angezeigt
             </summary>
@@ -112,7 +112,7 @@
             Die ID der Zutat
             </param>
         </member>
-        <member name="M:Automatisches_Kochbuch.Controllers.ZutatenController.PutTabZutaten(System.Int32,Automatisches_Kochbuch.Model.TabZutaten)">
+        <member name="M:Automatisches_Kochbuch.Controllers.ZutatenController.PutTabZutaten(System.Int32,Automatisches_Kochbuch.Dtos.ZutatenUpdateDto)">
             <summary>
             Es wird eine Zutat geändert
             </summary>
@@ -120,7 +120,7 @@
             Die ID der Zutat
             </param>
         </member>
-        <member name="M:Automatisches_Kochbuch.Controllers.ZutatenController.PostTabZutaten(Automatisches_Kochbuch.Model.TabZutaten)">
+        <member name="M:Automatisches_Kochbuch.Controllers.ZutatenController.PostTabZutaten(Automatisches_Kochbuch.Dtos.ZutatenCreatDto)">
             <summary>
             Es wird eine Zutat hinzugefügt
             </summary>

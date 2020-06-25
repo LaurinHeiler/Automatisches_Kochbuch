@@ -9,6 +9,8 @@ using Automatisches_Kochbuch.Model;
 using Automatisches_Kochbuch.Context;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Automatisches_Kochbuch.Dtos;
+using AutoMapper;
 
 namespace Automatisches_Kochbuch.Controllers
 {
@@ -18,10 +20,12 @@ namespace Automatisches_Kochbuch.Controllers
     public class UserController : ControllerBase
     {
         private readonly IDataContext _context;
+        private readonly IMapper _mapper;
 
-        public UserController(IDataContext context)
+        public UserController(IDataContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
         /// <summary>
         /// Es werden alle User angezeigt
@@ -34,13 +38,13 @@ namespace Automatisches_Kochbuch.Controllers
         [Authorize(Roles = Role.ADMIN)] //nur authentifizierte Admins können alle User abrufen
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<IEnumerable<TabUser>>> GetAllUsersAsync()
+        public async Task<ActionResult<IEnumerable<UserReadDto>>> GetAllUsersAsync()
         {
             // Query verwenden, um alle User zu holen
             IEnumerable<TabUser> users = await _context.GetAllUsersAsync();
 
             //von der Query erhaltene User zurückgeben
-            return Ok(users);
+            return Ok(_mapper.Map<IEnumerable<UserReadDto>>(users));
         }
 
         /// <summary>
@@ -89,14 +93,14 @@ namespace Automatisches_Kochbuch.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<TabUser>> GetUserAsync(int id)
+        public async Task<ActionResult<UserReadDto>> GetUserAsync(int id)
         {
             //Claims in der erzeugten Identity können hier verwendet werden
             //-> User können nur ihre eigenen Daten abrufen
             if (id != Convert.ToInt16(User.FindFirst(ClaimTypes.NameIdentifier).Value) &&
                 !User.IsInRole(Role.ADMIN)) // Admins können jeden User abrufen
             {
-                return Forbid("Das ist Ihnen nicht erlaubt.");
+                return Forbid();
             }
 
             TabUser user = await _context.GetUserAsync(id);
@@ -106,7 +110,7 @@ namespace Automatisches_Kochbuch.Controllers
                 return NotFound("Der User existiert nicht.");
             }
 
-            return Ok(user);
+            return Ok(_mapper.Map<UserReadDto>(user));
         }
         /// <summary>
         /// Es wird ein User hinzugefügt

@@ -52,7 +52,7 @@ namespace Automatisches_Kochbuch.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetTabZutaten([FromRoute] int id)
+        public async Task<IActionResult> GetZutat([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
@@ -77,10 +77,10 @@ namespace Automatisches_Kochbuch.Controllers
         /// </param>
         // PUT: api/Zutaten/5
         [HttpPut("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> PutTabZutaten([FromRoute] int id, [FromBody] TabZutaten tabZutaten)
+        public async Task<IActionResult> PutTabZutaten([FromRoute] int id, [FromBody] ZutatenUpdateDto tabZutaten)
         {
             //überprüfen ob Daten und ID eingegeben worden sind.
             if (tabZutaten == null || id != tabZutaten.Id)
@@ -95,6 +95,8 @@ namespace Automatisches_Kochbuch.Controllers
             //falls eine Zutat gefunden wurde, dessen Daten aktualisieren
             if (zutatDB != null)
             {
+                _mapper.Map(tabZutaten, zutatDB);
+
                 zutatDB.IdZutatEinheit = tabZutaten.IdZutatEinheit;
                 zutatDB.IdZutatKategorie = tabZutaten.IdZutatKategorie;
                 zutatDB.Id = tabZutaten.Id;
@@ -104,7 +106,7 @@ namespace Automatisches_Kochbuch.Controllers
 
                 await _context.SaveChangesAsynchron();
 
-                return Ok(zutatDB);
+                return NoContent();
             }
 
             return NotFound("Die Zutat existiert nicht!");
@@ -121,14 +123,16 @@ namespace Automatisches_Kochbuch.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> PostTabZutaten([FromBody] TabZutaten tabZutaten)
+        public async Task<IActionResult> PostTabZutaten([FromBody] ZutatenCreatDto tabZutaten)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.TabZutaten.Add(tabZutaten);
+            var Zutat = _mapper.Map<TabZutaten>(tabZutaten);
+
+            _context.TabZutaten.Add(Zutat);
             await _context.SaveChangesAsynchron();
 
             return CreatedAtAction("GetTabZutaten", new { id = tabZutaten.Id }, tabZutaten);
@@ -144,7 +148,7 @@ namespace Automatisches_Kochbuch.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteTabZutaten([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -161,7 +165,7 @@ namespace Automatisches_Kochbuch.Controllers
             _context.TabZutaten.Remove(tabZutaten);
             await _context.SaveChangesAsynchron();
 
-            return Ok(tabZutaten);
+            return NoContent();
         }
 
     }
