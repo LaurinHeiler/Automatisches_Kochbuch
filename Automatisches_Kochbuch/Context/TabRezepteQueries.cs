@@ -104,52 +104,17 @@ namespace Automatisches_Kochbuch.Context
         }
 
         public static string MehrZumGericht(this IDataContext context, int id, int AnzahlPersonen)
-        {
-            //var ZutatenVonRezeptID = context.LnkTabRezeptZutaten.Where(r => r.IdRezept == id).Select(r => r.IdZutaten);
+        {            
+            var ZutatenUndMengeVonRezept = context.LnkTabRezeptZutaten.Where(r => r.IdRezept == id).Select(r => new { Zutat = r.IdZutatenNavigation.Zutat, Menge = r.Menge });
 
-            List<string> ZutatenVonRezeptList = new List<string>();
-            //anonymer Datentyp mit Menge und Zutat
-            var ZutatenVonRezept = context.LnkTabRezeptZutaten.Where(r => r.IdRezept == id).Select(r => r.IdZutatenNavigation.Zutat);
+            string MengeUndZutaten = null;
 
-            foreach (var item in ZutatenVonRezept)
+            foreach (var item in ZutatenUndMengeVonRezept)
             {
-                ZutatenVonRezeptList.Add(item);
+                MengeUndZutaten += (item.Menge * AnzahlPersonen) + " " + item.Zutat + " | ";
             }
             
-
-            var MengeVonRezeptZutaten = context.LnkTabRezeptZutaten.Where(r => r.IdRezept == id).Select(r => r.Menge);
-            //var EinheitenVonRezeptZutaten = context.LnkTabRezeptZutaten.Where(r => r.IdRezept == id).Select(r => r.E);
-
-
-            //List<string> ZutatenVonRezept = new List<string>();
-
-            //foreach (var item in ZutatenVonRezeptID)
-            //{
-            //    var IDZuZutat = context.TabZutaten.Where(z => z.Id == item).Select(z => z.Zutat);
-
-            //    foreach (var item2 in IDZuZutat)
-            //    {
-            //        ZutatenVonRezept.Add(item2);
-            //    }
-
-
-            //}
-
-            List<decimal> MengeVonRezept = new List<decimal>();
-
-            foreach (var item in MengeVonRezeptZutaten)
-            {
-                MengeVonRezept.Add(item);
-            }
-
-            string ausgabe = null;
-            for (int i = 0; i < ZutatenVonRezept.Count(); i++)
-            {
-                ausgabe = ausgabe + (MengeVonRezept[i] * AnzahlPersonen) + " " + ZutatenVonRezeptList[i] + " | ";
-            }
-
-
-            return ausgabe;
+            return Convert.ToString(MengeUndZutaten);
 
         }
     }
