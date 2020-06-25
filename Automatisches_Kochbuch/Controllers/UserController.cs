@@ -65,20 +65,35 @@ namespace Automatisches_Kochbuch.Controllers
         [HttpPost("authenticate")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<TabUser>> AuthenticateUserAsync([FromBody] TabUser userParam)
+        public async Task<ActionResult<TabUser>> AuthenticateUserAsync([FromBody] UserCreateDto userParam)
         {
             // Query verwenden, um User zu authentifizieren
-            TabUser user = await _context.AuthenticateAsync(userParam.Username, userParam.Passwort);
+            //TabUser user = await _context.AuthenticateAsync(userParam.Username, userParam.Passwort);
+
+            //entsprechenden User aus der DB holen
+            TabUser userDB = await
+            _context.TabUser.SingleOrDefaultAsync(x => x.Username == userParam.Username &&
+                                                 x.Passwort == userParam.Passwort);
+
+            var User = _mapper.Map<TabUser>(userParam);
+
+            //falls ein User gefunden wurde, Passwort schwärzen bzw. unkenntlich machen
+            if (User != null)
+            {
+                User.Passwort = null;
+            }
+
+
 
             //wenn die Query keinen entsprechenden User zurückgibt, gibt es keinen mit dem entsprechenden
-            //Vornamen und PW
-            if (user == null)
+            //Username und PW
+            if (User == null)
             {
-                return BadRequest("Vorname oder Passwort ist falsch.");
+                return BadRequest("Username oder Passwort ist falsch.");
             }
 
             //Von der Query erhaltenen User zurückgeben
-            return Ok(user);
+            return Ok(User);
 
         }
         /// <summary>
@@ -118,24 +133,47 @@ namespace Automatisches_Kochbuch.Controllers
         /// <remarks>
         /// Geben Sie Ihre gewünschten Userdaten ein
         /// </remarks>
-        //POST: api/user/register
+        //POST: api/user
         [AllowAnonymous] //Damit jeder User seinen eigenen Account selber erstellen kann.
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<ActionResult<TabUser>> RegisterUserAsync([FromBody] TabUser userParam)
+        public async Task<ActionResult<TabUser>> RegisterUserAsync([FromBody] UserCreateDto userParam)
         {
             if (userParam == null)
             {
                 return BadRequest("Irgendetwas ist schief gelaufen! Geben Sie die Parameter erneut ein.");
             }
 
-            TabUser user = await _context.RegisterUserAsync(userParam);
-            await _context.SaveChangesAsynchron();
+            //TabUser user = await _context.RegisterUserAsync(User);
 
-            return CreatedAtAction("GetUserAsync", new { id = user.Id }, user); //Wenn Registrierung erfolgreich
-            //wird der eben erstellte User angezeigt
+            //prüfen, ob der Username schon vergeben ist
+            bool usernameVorhanden = await _context.TabUser.AnyAsync(x =>
+                x.Username == userParam.Username);
+            if (!usernameVorhanden)
+            {
+                //falls keine gültige Rolle angegeben wurde,
+                //bekommt der neue User die Rolle "user"
+                if (!Role.IsValid(userParam.Role))
+                {
+                    userParam.Role = Role.USER;
+                }
+
+                var User = _mapper.Map<TabUser>(userParam);
+
+                await _context.TabUser.AddAsync(User);
+
+                await _context.SaveChangesAsynchron();
+
+                return CreatedAtAction("GetUserAsync", new { id = userParam.Id }, userParam); //Wenn Registrierung erfolgreich
+                                                                                              //wird der eben erstellte User angezeigt
+            }
+            else
+            {
+                return BadRequest("Der Username ist schon vorhanden.");
+            }
+
         }
         /// <summary>
         /// Es wird ein User geändert
@@ -149,7 +187,7 @@ namespace Automatisches_Kochbuch.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<TabUser>> UpdateUserAsync(int id, [FromBody] TabUser userParam)
+        public async Task<ActionResult<TabUser>> UpdateUserAsync(int id, [FromBody] UserUpdateDto userParam)
         {
             if (userParam == null || id != userParam.Id)
             {
@@ -164,16 +202,64 @@ namespace Automatisches_Kochbuch.Controllers
                 return Forbid("Das ist Ihnen nicht erlaubt!");
             }
 
-            TabUser user = await _context.UpdateUserdataAsync(userParam);
+            //TabUser user = await _context.UpdateUserdataAsync(userParam);
 
-            await _context.SaveChangesAsynchron();
 
-            if (user == null)
+
+            //entsprechenden User aus der DB holen
+            TabUser userDB = await _context.TabUser.SingleOrDefaultAsync(u =>
+            u.Id == userParam.Id);
+
+            //falls ein User gefunden wurde, dessen Daten aktualisieren
+            if (userDB != null)
             {
-                return NotFound("Der User existiert nicht!");
+                //prüfen, ob der Username geändert wrude
+                if (userDB.Username != userParam.Username)
+                {
+                    //prüfen, ob der neue Username noch frei ist
+                    bool usernameVorhanden = await _context.TabUser.AnyAsync(x =>
+                        x.Username == userParam.Username);
+
+                    if (usernameVorhanden)
+                    {
+                        return null;
+                    }
+                    //neuen Usernamen Übernehmen
+                    userDB.Username = userParam.Username;
+                }
+
+                //prüfen, ob die Rolle geändert wurde
+                if (userDB.Role != userParam.Role)
+                {
+
+                    //falls keine gültige Rolle angegeben wurde,
+                    //bekommt der neue User die Rolle "user"
+                    string userParamRole = userParam.Role.Trim().ToLower();
+                    if (!Role.IsValid(userParam.Role))
+                    {
+                        userParam.Role = Role.USER;
+                    }
+                }
+
+                _mapper.Map(userParam, userDB);
+
+                //Daten werden aktualisiert
+                userDB.Vorname = userParam.Vorname;
+                userDB.Nachname = userParam.Nachname;
+                userDB.Id = userParam.Id;
+                userDB.Passwort = userParam.Passwort;
+                userDB.Username = userParam.Username;
+                userDB.Vegetarier = userParam.Vegetarier;
+                userDB.Veganer = userParam.Veganer;
+                userDB.Glutenfrei = userParam.Glutenfrei;
+
+                await _context.SaveChangesAsynchron();
+
+                return NoContent();
+
             }
 
-            return Ok(user);
+            return NotFound("Der User existiert nicht!");
 
         }
         /// <summary>

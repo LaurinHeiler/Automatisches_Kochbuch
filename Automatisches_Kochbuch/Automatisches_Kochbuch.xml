@@ -56,7 +56,7 @@
             Alle User
             </returns>
         </member>
-        <member name="M:Automatisches_Kochbuch.Controllers.UserController.AuthenticateUserAsync(Automatisches_Kochbuch.Model.TabUser)">
+        <member name="M:Automatisches_Kochbuch.Controllers.UserController.AuthenticateUserAsync(Automatisches_Kochbuch.Dtos.UserCreateDto)">
             <summary>
             Der User wird authentifiziert
             </summary>
@@ -72,7 +72,7 @@
             Die ID des User
             </param>
         </member>
-        <member name="M:Automatisches_Kochbuch.Controllers.UserController.RegisterUserAsync(Automatisches_Kochbuch.Model.TabUser)">
+        <member name="M:Automatisches_Kochbuch.Controllers.UserController.RegisterUserAsync(Automatisches_Kochbuch.Dtos.UserCreateDto)">
             <summary>
             Es wird ein User hinzugefügt
             </summary>
@@ -80,7 +80,7 @@
             Geben Sie Ihre gewünschten Userdaten ein
             </remarks>
         </member>
-        <member name="M:Automatisches_Kochbuch.Controllers.UserController.UpdateUserAsync(System.Int32,Automatisches_Kochbuch.Model.TabUser)">
+        <member name="M:Automatisches_Kochbuch.Controllers.UserController.UpdateUserAsync(System.Int32,Automatisches_Kochbuch.Dtos.UserUpdateDto)">
             <summary>
             Es wird ein User geändert
             </summary>
@@ -155,7 +155,7 @@
             Gibt eine ZutatenKategorie zurück.
             </returns>
         </member>
-        <member name="M:Automatisches_Kochbuch.Controllers.ZutatenKategorienController.PutTabZutatenKategorien(System.Int32,Automatisches_Kochbuch.Model.TabZutatenKategorien)">
+        <member name="M:Automatisches_Kochbuch.Controllers.ZutatenKategorienController.PutTabZutatenKategorien(System.Int32,Automatisches_Kochbuch.Dtos.ZutatenKategorienUpdateDto)">
             <summary>
             Es wird eine ZutatenKategorie geändert
             </summary>
@@ -163,7 +163,7 @@
             Die ID der ZutatenKategorie
             </param>
         </member>
-        <member name="M:Automatisches_Kochbuch.Controllers.ZutatenKategorienController.PostTabZutatenKategorien(Automatisches_Kochbuch.Model.TabZutatenKategorien)">
+        <member name="M:Automatisches_Kochbuch.Controllers.ZutatenKategorienController.PostTabZutatenKategorien(Automatisches_Kochbuch.Dtos.ZutatenKategorienCreateDto)">
             <summary>
             Es wird eine neue ZutatenKategorie hinzugefügt
             </summary>

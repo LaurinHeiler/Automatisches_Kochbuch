@@ -13,6 +13,8 @@ namespace Automatisches_Kochbuch.Profiles
         public UserProfile()
         {
             CreateMap<TabUser, UserReadDto>();
+            CreateMap<UserCreateDto, TabUser>();
+            CreateMap<UserUpdateDto, TabUser>();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Automatisches_Kochbuch.Model;
+﻿using Automatisches_Kochbuch.Dtos;
+using Automatisches_Kochbuch.Model;
 using Microsoft.AspNetCore.Identity.UI.Pages.Internal.Account;
 using Microsoft.AspNetCore.Rewrite.Internal;
 using Microsoft.EntityFrameworkCore;
@@ -71,81 +72,8 @@ namespace Automatisches_Kochbuch.Context
             return user;
         }
 
-        public static async Task<TabUser> RegisterUserAsync(this IDataContext context, TabUser userParam)
-        {
-            //prüfen, ob der Username schon vergeben ist
-            bool usernameVorhanden = await context.TabUser.AnyAsync(x =>
-                x.Username == userParam.Username);
 
-            //falls keine gültige Rolle angegeben wurde,
-            //bekommt der neue User die Rolle "user"
-            if (!Role.IsValid(userParam.Role))
-            {
-                userParam.Role = Role.USER;
-            }
 
-            await context.TabUser.AddAsync(userParam);
-            //await context.SaveChangesAsynchron();
 
-            return userParam;
-
-        }
-
-        public static async Task<TabUser> UpdateUserdataAsync(this IDataContext context, TabUser userParam)
-        {
-            //entsprechenden User aus der DB holen
-            TabUser userDB = await context.TabUser.SingleOrDefaultAsync(u =>
-            u.Id == userParam.Id);
-
-            //falls ein User gefunden wurde, dessen Daten aktualisieren
-            if (userDB != null)
-            {
-                //prüfen, ob der Username geändert wrude
-                if (userDB.Username != userParam.Username)
-                {
-                    //prüfen, ob der neue Username noch frei ist
-                    bool usernameVorhanden = await context.TabUser.AnyAsync(x =>
-                        x.Username == userParam.Username);
-
-                    if (usernameVorhanden)
-                    {
-                        return null;
-                    }
-                    //neuen Usernamen Übernehmen
-                    userDB.Username = userParam.Username;
-                }
-
-                //prüfen, ob die Rolle geändert wurde
-                if (userDB.Role != userParam.Role)
-                {
-
-                    //falls keine gültige Rolle angegeben wurde,
-                    //bekommt der neue User die Rolle "user"
-                    string userParamRole = userParam.Role.Trim().ToLower();
-                    if (!Role.IsValid(userParam.Role))
-                    {
-                        userParam.Role = Role.USER;
-                    }
-                }
-
-                //Daten werden aktualisiert
-                userDB.Vorname = userParam.Vorname;
-                userDB.Nachname = userParam.Nachname;
-                userDB.Id = userParam.Id;
-                userDB.Passwort = userParam.Passwort;
-                userDB.Username = userParam.Username;
-                userDB.Vegetarier = userParam.Vegetarier;
-                userDB.Veganer = userParam.Veganer;
-                userDB.Glutenfrei = userParam.Glutenfrei;
-                //DR Todo
-
-                //await context.SaveChangesAsynchron();
-
-                return userDB;
-            }
-
-            //es gibt keinen entsprechenden User
-            return null;
-        }
     }
 }
