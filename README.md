@@ -1,5 +1,7 @@
 # Automatisches_Kochbuch
 
+Vorab: Die kurze und schnelle Verbesserungszusammenfassung finden Sie in der Teams Abgabe.
+
 Hallo Herr Professor,
 
 anbei finden Sie sowohl das Projekt als auch dessen Beschreibung und alle anderen wichtigen Dateien und Informationen, die mit abgegeben werden müssen. Diese sind im Directory Endabgabe/... enthalten. 
